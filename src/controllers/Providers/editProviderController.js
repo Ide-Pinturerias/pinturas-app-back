@@ -1,6 +1,6 @@
 const { Providers } = require("../../db.js");
 
-const editProvider = async (id, { name, discount, markup }) => {
+const editProvider = async (id, providerData) => {
 
 
 
@@ -8,15 +8,8 @@ const editProvider = async (id, { name, discount, markup }) => {
     if (!provider) {
         return { message: "provider not found" };
     }
-    if (name !== undefined) {
-        provider.name = name;
-    }
-    if (discount !== undefined) {
-        provider.discount = discount;
-    }
-    if (markup !== undefined) {
-        provider.markup = markup;
-    }
+    provider.update(providerData);
+
     await provider.save();
     return provider;
 
