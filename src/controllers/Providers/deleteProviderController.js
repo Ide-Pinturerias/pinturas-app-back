@@ -5,7 +5,7 @@ const deleteProviderController = async (id) => {
 
     if (!provider) throw Error("PROVEEDOR NO ENCONTRADO");
 
-    if (Providers.active != true) throw Error("PROVEEDOR NO ACTIVO");
+    if (provider.active != true) throw Error("PROVEEDOR NO ACTIVO");
 
     await provider.update({ active: false });
 
