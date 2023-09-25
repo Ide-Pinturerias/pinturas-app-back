@@ -1,5 +1,4 @@
 const cloudinary = require("cloudinary").v2;
-// eslint-disable-next-line no-undef
 const { CLOUD_NAME, CLOUD_KEY, CLOUD_SECRET } = process.env;
 const sanitize = require("sanitize-filename");
 
@@ -16,10 +15,10 @@ const uploadImage = async (file) => {
 
     let imgProduct = file.originalname;
 
-    //Sacar la extensión;
+    // Sacar la extensión;
     let extension = imgProduct.split(".").pop();
 
-    //Comprobar extension;
+    // Comprobar extension;
     if (!["png", "jpg", "jpeg", "gif", "webp"]
         .includes(extension.toLowerCase())) {
         throw new Error("Por favor sube extensión de imagen permitida");
