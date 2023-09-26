@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
-// const { parsed: ENV } = require('dotenv').config();
-// eslint-disable-next-line no-undef
 const { JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
@@ -15,10 +13,10 @@ const auth = (req, res, next) => {
         });
     }
 
-    //limipar el token por si me vienen comillas
+    // Limpiar el token por si me vienen comillas
     const token = req.headers.authorization.replace(/['"]+/g, '');
 
-    //Decodificar token
+    // Decodificar token
     try {
 
         let payload = jwt.decode(token, JWT_SECRET);
@@ -34,7 +32,7 @@ const auth = (req, res, next) => {
 
         }
 
-        //Agregar datos del usuario
+        // Agregar datos del usuario
 
         req.user = payload;
 
@@ -50,7 +48,7 @@ const auth = (req, res, next) => {
 
     }
 
-    //Pasar a ejecución de acción
+    // Pasar a ejecución de acción
     next();
 
 };

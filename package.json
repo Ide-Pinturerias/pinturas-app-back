@@ -1,69 +1,60 @@
 {
-    "name": "api",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "start": "nodemon -L --trace-warnings",
-        "setProviderToProducts": "node ./scripts/setProviderToProducts.js",
-        "secureImages": "node ./scripts/secureImages.js",
-        "resetProducts": "node ./scripts/resetProducts.js",
-        "resetUsers": "node ./scripts/resetUsers.js",
-        "resetCategories": "node ./scripts/resetCategories.js",
-        "resetProductsCategories": "node ./scripts/resetProductsCategories.js",
-        "resetCarts": "node ./scripts/resetCarts.js",
-        "resetOrders": "node ./scripts/resetOrders.js",
-        "test": "mocha --recursive --timeout 10000 --exit",
-        "testDB": "mocha -g 'DATABASE CONNECTIONS' --recursive --timeout 10000 --exit",
-        "testEnv": "mocha -g 'ENVIRONMENT VARIABLES' --recursive --timeout 10000 --exit",
-        "testControllers": "mocha -g 'CONTROLLERS' --recursive --timeout 10000 --exit",
-        "testCartsControllers": "mocha -g 'Carts Controllers' --recursive --timeout 10000 --exit",
-        "testUsersControllers": "mocha -g 'Users Controllers' --recursive --timeout 10000 --exit",
-        "testOrdersModels": "mocha -g 'Orders Models' --recursive --timeout 10000 --exit"
-    },
-    "keywords": [],
     "author": "",
-    "license": "ISC",
     "dependencies": {
-        "axios": "^1.4.0",
-        "bcrypt": "^5.1.0",
+        "axios": "^1.5.0",
+        "bcrypt": "^5.1.1",
         "body-parser": "^1.20.2",
         "cloudinary": "^1.40.0",
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
-        "express-rate-limit": "^6.7.1",
+        "express-rate-limit": "^7.0.1",
         "https": "^1.0.0",
-        "jsonwebtoken": "^9.0.1",
+        "jsonwebtoken": "^9.0.2",
         "mercadopago": "^1.5.17",
         "moment": "^2.29.4",
         "morgan": "^1.10.0",
-        "multer": "^1.4.5-lts.1",
-        "nodemailer": "^6.9.4",
+        "multer": "1.4.5-lts.1",
+        "nodemailer": "^6.9.5",
         "path": "^0.12.7",
-        "pg": "^8.11.1",
+        "pg": "^8.11.3",
         "pg-hstore": "^2.3.4",
         "sanitize-filename": "^1.6.3",
-        "sequelize": "^6.32.1",
+        "sequelize": "^6.33.0",
         "uuid": "^9.0.1",
-        "validator": "^13.9.0",
+        "validator": "^13.11.0",
         "xlsx": "^0.18.5"
     },
+    "description": "",
     "devDependencies": {
-        "chai": "^4.2.0",
-        "eslint": "^8.46.0",
-        "mocha": "^10.2.0",
-        "nodemon": "^2.0.6",
+        "eslint": "^8.49.0",
+        "nodemon": "^3.0.1",
         "standard": "^17.1.0",
-        "supertest": "^6.0.1",
-        "supertest-session": "^4.1.0"
+        "vitest": "^0.34.4"
     },
-    "http.proxySupport": "off",
+    "engines": {
+        "node": "18.17.1"
+    },
     "eslintConfig": {
         "extends": "standard"
     },
-    "engines": {
-        "node": ">=18 <19"
-    }
+    "http.proxySupport": "off",
+    "keywords": [],
+    "license": "ISC",
+    "main": "index.js",
+    "name": "api",
+    "scripts": {
+        "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
+        "resetCarts": "node ./scripts/resetCarts.js",
+        "resetCategories": "node ./scripts/resetCategories.js",
+        "resetOrders": "node ./scripts/resetOrders.js",
+        "resetProducts": "node ./scripts/resetProducts.js",
+        "resetProductsCategories": "node ./scripts/resetProductsCategories.js",
+        "resetUsers": "node ./scripts/resetUsers.js",
+        "secureImages": "node ./scripts/secureImages.js",
+        "setProviderToProducts": "node ./scripts/setProviderToProducts.js",
+        "start": "nodemon -L --trace-warnings"
+    },
+    "version": "2.0.0"
 }

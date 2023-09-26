@@ -1,9 +1,13 @@
 {
     "[javascript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features",
-        "editor.tabSize": 4,
         "editor.detectIndentation": false,
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "editor.suggest.insertMode": "replace",
+        "editor.tabSize": 4
+    },
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
     },
     "[json]": {
         "editor.quickSuggestions": {

@@ -4,8 +4,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const { rateLimiter } = require('./middlewares/');
-const path = require('path');
-
+const path = require("path");
 
 const server = express();
 // Proxy configuration
@@ -41,7 +40,6 @@ server.use((req, res, next) => {
 });
 // Utilizar el middleware express.static para servir
 // archivos estáticos desde la carpeta "public"
-// eslint-disable-next-line no-undef
 server.use(express.static(path.join(__dirname, 'public')));
 
 // auth router attaches /login, /logout, and /callback routes to the baseURL
@@ -49,7 +47,6 @@ server.use('/', routes);
 
 // Error catching endware.
 server.use((err, req, res, next) => {
-    // eslint-disable-line no-unused-vars
     const status = err.status || 500;
     const message = err.message || err;
     console.error(err);

@@ -8,7 +8,7 @@ const createReviewController = async ({ orderId,
 
     if (!order) throw Error('ORDEN NO ENCONTRADA');
 
-    const review = await order.getReview();
+    // const review = await order.getReview();
     // if (review) {
     //     throw new Error('ESTA ORDEN YA TIENE UNA REVIEW');
     // }
