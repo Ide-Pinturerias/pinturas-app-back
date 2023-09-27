@@ -7,15 +7,21 @@ const editProductController = async (id, newProductData) => {
     const productToEdit = await Products.findByPk(id);
     if (!productToEdit) throw Error("Producto no encontrado");
 
-    // Buscar proveedor correspondiente
-    const provider = await Providers.findOne({ where: { name: newProductData.patent } });
-    if (!provider) throw Error('Proveedor no encontrado');
+    if (productToEdit.patent !== newProductData.patent) {
+        // Buscar nuevo proveedor
+        const provider = await Providers.findOne({ where: { name: newProductData.patent } });
+        if (!provider) throw Error('Proveedor no encontrado');
 
-    //Actualizar producto con nuevos datos
-    await productToEdit.update({
-        ...newProductData,
-        price: calculatePrice(newProductData.price, provider.discount, IVA, provider.markup),
-    });
+        //Actualizar producto con nuevos datos y cambio de proveedor
+        await productToEdit.update({
+            ...newProductData,
+            providerId: provider.id,
+            price: calculatePrice(newProductData.price, provider.discount, IVA, provider.markup),
+        });
+    } else {
+        //actualizar producto con nuevos datos
+        await productToEdit.update({ ...newProductData });
+    }
 
     return productToEdit.dataValues;
 };
