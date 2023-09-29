@@ -1,5 +1,5 @@
-const { transporter } = require('../../services/nodemailer');
-const { SENDER_EMAIL: sender_email } = process.env;
+const transporter = require('../../services/nodemailer');
+const { SENDER_MAIL: sender_email } = process.env;
 
 const sendOrderEmailController = ({ email, message }) => {
 

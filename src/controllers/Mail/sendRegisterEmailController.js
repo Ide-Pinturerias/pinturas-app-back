@@ -1,4 +1,4 @@
-const { transporter } = require('../../services/nodemailer');
+const transporter = require('../../services/nodemailer');
 const { SENDER_MAIL: sender_email } = process.env;
 const { Users } = require('../../db');
 
