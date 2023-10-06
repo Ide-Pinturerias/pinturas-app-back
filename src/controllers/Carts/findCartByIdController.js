@@ -2,7 +2,7 @@ const { Carts } = require('../../db');
 
 const findCartByIdController = async ({ idCart, idUser }) => {
 
-    if (!idCart || !idUser) {
+    if (!idCart && !idUser) {
         throw new Error('Faltan parámetros de búsqueda');
     }
 
