@@ -52,9 +52,6 @@ module.exports = (sequelize) => {
         phone: {
             type: DataTypes.STRING,
             allowNull: true,
-            validate: {
-                isNumeric: true,
-            },
         },
         image: {
             type: DataTypes.STRING,
