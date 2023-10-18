@@ -4,18 +4,21 @@ const { uploadImage } = require("../../services/cloudinary");
 const decodedToken = require("../../services/decodedJwt");
 
 const createBlogsHandler = async (req, res) => {
-
-    const authorization = decodedToken(req);
-
-    if (authorization.rol !== "admin") {
-
-        return res.status(500).json({
-            status: "error",
-            message: "No cuentas con los permisos para esta sección"
-        });
-    }
+    //AUTORIZACION
+    const token = req.header('Authorization');
+    if (!token) return res.status(401).json({
+        error: "Falta el token de autorización"
+    });
 
     try {
+        const authorization = decodedToken(token);
+
+        if (authorization.rol !== "admin") {
+
+            return res.status(403).json({
+                error: "No cuentas con los permisos para esta sección"
+            });
+        }
         if (req.file) {
             const secure_url = await uploadImage(req.file);
 

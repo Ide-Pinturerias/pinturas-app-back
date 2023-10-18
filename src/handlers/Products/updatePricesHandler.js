@@ -4,14 +4,17 @@ const decodedToken = require("../../services/decodedJwt");
 
 const updatePricesHandler = async (req, res) => {
     //AUTORIZACION
-    try {
-        const authorization = decodedToken(req);
+    const token = req.header('Authorization');
+    if (!token) return res.status(401).json({
+        error: "Falta el token de autorización"
+    });
 
+    try {
+        const authorization = decodedToken(token);
         if (authorization.rol !== "admin") {
 
             return res.status(403).json({
-                status: "error",
-                message: "No cuentas con los permisos para esta sección"
+                error: "No cuentas con los permisos para esta sección"
             });
         }
         const uploadedFile = req.file;

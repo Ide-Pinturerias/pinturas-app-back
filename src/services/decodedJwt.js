@@ -1,11 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = process.env;
 
-const decodedToken = (req) => {
-
-    const token = req.header('Authorization');
-
-    if (!token) throw Error("Falta el token de autorización");
+const decodedToken = (token) => {
 
     const decodeAuthorization = jwt.verify(token, JWT_SECRET);
 
