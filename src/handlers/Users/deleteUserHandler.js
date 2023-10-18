@@ -2,6 +2,12 @@ const { UsersControllers } = require('../../controllers');
 const { deleteUser } = UsersControllers;
 
 const deleteUserHandler = async (req, res) => {
+
+    const token = req.header('Authorization');
+    if (!token) return res.status(401).json({
+        error: "Falta el token de autorización"
+    });
+
     try {
         const { id } = req.params;
         const result = await deleteUser(id);
