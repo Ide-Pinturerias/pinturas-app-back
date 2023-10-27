@@ -64,6 +64,9 @@ module.exports = (sequelize) => {
         description: {
             type: DataTypes.TEXT,
             allowNull: true,
+            validate: {
+                len: [0, 1000]
+            }
         },
         nroReviews: {
             type: DataTypes.FLOAT,

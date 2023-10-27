@@ -20,6 +20,7 @@ module.exports = (sequelize) => {
         },
         password: {
             type: DataTypes.STRING,
+            allowNull: false,
         },
         rol: {
             type: DataTypes.STRING,
@@ -39,7 +40,6 @@ module.exports = (sequelize) => {
         address: {
             type: DataTypes.STRING,
             allowNull: true,
-
         },
         locality: {
             type: DataTypes.STRING,

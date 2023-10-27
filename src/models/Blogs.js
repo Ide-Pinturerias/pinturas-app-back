@@ -22,6 +22,9 @@ module.exports = (sequelize) => {
             description: {
                 type: DataTypes.TEXT,
                 allowNull: false,
+                validate: {
+                    len: [0, 2000]
+                }
             },
             active: {
                 type: DataTypes.BOOLEAN,
