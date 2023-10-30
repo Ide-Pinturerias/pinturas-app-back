@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         description: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING,
         },
         image: {
             type: DataTypes.STRING,
@@ -22,5 +22,4 @@ module.exports = (sequelize) => {
         },
     },
         { timestamps: true });
-
 };
