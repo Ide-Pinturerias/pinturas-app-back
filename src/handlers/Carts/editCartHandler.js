@@ -5,9 +5,9 @@ const editCartHandler = async (req, res) => {
 
     try {
 
-        const { idUser, idCart, products } = req.body;
+        const { userId, idCart, products } = req.body;
 
-        const editedCart = await editCart({ idUser, idCart, products });
+        const editedCart = await editCart({ userId, idCart, products });
 
         return res.status(200).json(editedCart);
 

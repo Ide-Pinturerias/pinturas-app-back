@@ -1,10 +1,10 @@
 const { Carts, Users } = require('../../db');
 
-const editCartController = async ({ idUser, idCart, products }) => {
+const editCartController = async ({ userId, idCart, products }) => {
 
     const user = await Users.findOne({
         where: {
-            id: idUser
+            id: userId
         }
     });
 
@@ -14,7 +14,7 @@ const editCartController = async ({ idUser, idCart, products }) => {
         }
     }) : await Carts.findOne({
         where: {
-            idUser
+            userId
         }
     });
 
@@ -32,12 +32,12 @@ const editCartController = async ({ idUser, idCart, products }) => {
 
     });
 
-    if (idUser) {
+    if (userId) {
         await user.update({
             idCart: cart.idCart
         });
         await cart.update({
-            idUser: user.id
+            userId: user.id
         });
     }
 
