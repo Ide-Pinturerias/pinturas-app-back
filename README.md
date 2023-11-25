@@ -23,9 +23,8 @@ Es una API REST que permite al usuario crear, leer, actualizar y eliminar produc
 ![Express](https://img.shields.io/badge/-Express-333333?style=flat&logo=express)
 ![Sequelize](https://img.shields.io/badge/-Sequelize-333333?style=flat&logo=sequelize)
 ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-333333?style=flat&logo=postgresql)
-![Mocha](https://img.shields.io/badge/-Mocha-333333?style=flat&logo=mocha)
-![Chai](https://img.shields.io/badge/-Chai-333333?style=flat&logo=chai)
 ![Render](https://img.shields.io/badge/-Render-333333?style=flat&logo=render)
+![ESLint](https://img.shields.io/badge/-ESLint-333333?style=flat&logo=eslint)
 
 ## Deployment (Despliegue)
 
@@ -37,5 +36,5 @@ This project is deployed on Render.com at the following URL:
 
 ## Testing Status (Estado de las Pruebas)
 
-[![Node.js CI](https://github.com/PF-Ide-Pintureria/pinturas-app-back/actions/workflows/node.js.yml/badge.svg)](https://github.com/PF-Ide-Pintureria/pinturas-app-back/actions/workflows/node.js.yml)
-[![CodeQL](https://github.com/PF-Ide-Pintureria/pinturas-app-back/actions/workflows/codeql.yml/badge.svg)](https://github.com/PF-Ide-Pintureria/pinturas-app-back/actions/workflows/codeql.yml)
+[![Node.js CI](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/node.js.yml/badge.svg)](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/node.js.yml)
+[![CodeQL](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/codeql.yml/badge.svg)](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/codeql.yml)

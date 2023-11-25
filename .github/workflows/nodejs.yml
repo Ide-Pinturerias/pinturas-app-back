@@ -1,3 +1,5 @@
+name: Node.js CI
+
 on:
   - push
   - pull_request
@@ -15,11 +17,8 @@ jobs:
         with:
           node-version: 18
 
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        with:
-          version: 8
-          run_install: false
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Get pnpm store directory
         shell: bash
