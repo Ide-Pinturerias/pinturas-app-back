@@ -1,4 +1,4 @@
-name: Node.js CI && Eslint
+name: CI - Eslint
 
 on:
   - push

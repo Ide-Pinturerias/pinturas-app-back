@@ -36,5 +36,5 @@ This project is deployed on Render.com at the following URL:
 
 ## Testing Status (Estado de las Pruebas)
 
-[![Node.js CI](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/node.js.yml/badge.svg)](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/node.js.yml)
+[![Node.js CI && Eslint](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/ci-eslint.yml/badge.svg)](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/ci-eslint.yml)
 [![CodeQL](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/codeql.yml/badge.svg)](https://github.com/Ide-Pinturerias/pinturas-app-back/actions/workflows/codeql.yml)
