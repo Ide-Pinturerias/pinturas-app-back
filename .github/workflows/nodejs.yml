@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Node.js CI && Eslint
 
 on:
   - push
@@ -35,3 +35,6 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Run Eslint
+        run: pnpm lint
