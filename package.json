@@ -54,7 +54,8 @@
         "resetUsers": "node ./scripts/resetUsers.js",
         "secureImages": "node ./scripts/secureImages.js",
         "setProviderToProducts": "node ./scripts/setProviderToProducts.js",
-        "start": "nodemon -L --trace-warnings"
+        "dev": "nodemon -L --trace-warnings",
+        "start": "node index.js"
     },
     "version": "2.0.0"
 }

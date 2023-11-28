@@ -13,6 +13,8 @@ router.post('/add', CartsHandlers.addCartToUser);
 router.delete('/', CartsHandlers.deleteCart);
 // 5. Edit cart
 router.put('/', CartsHandlers.editCart);
+// 6. Create or find cart
+router.post('/createOrFind', CartsHandlers.createOrFindCart);
 
 
 module.exports = router;
