@@ -1,8 +1,10 @@
 name: Node CI - Eslint
 
 on:
-  - push
-  - pull_request
+  push:
+    branches: [ "develop", "main" ]
+  pull_request:
+    branches: [ "develop" ]
 
 jobs:
   cache-and-install:
