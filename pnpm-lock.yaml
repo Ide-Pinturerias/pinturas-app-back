@@ -39,8 +39,8 @@ dependencies:
     specifier: ^9.0.2
     version: 9.0.2
   mercadopago:
-    specifier: ^2.0.0
-    version: 2.0.4
+    specifier: 2.0.5
+    version: 2.0.5
   moment:
     specifier: ^2.29.4
     version: 2.29.4
@@ -2349,8 +2349,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /mercadopago@2.0.4:
-    resolution: {integrity: sha512-3lBTcJ1EMcjdyNVSoCS6Z3jIBJZAt22ANKmjew2yoN/lFCFLvf4UQBhYbKngEgSNr78Kbw3ip+fQgXgnMgY5rw==}
+  /mercadopago@2.0.5:
+    resolution: {integrity: sha512-AHipCWNARjtcmNXIxJaa6Dbvc8DwOGS/IZpPCuUXgvjKEtAFqYi+BGUNAsKSjCwFcUITWWc4w3Dz3bQunK34Uw==}
     dependencies:
       node-fetch: 2.7.0
       uuid: 9.0.1

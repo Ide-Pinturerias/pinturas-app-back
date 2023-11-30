@@ -1,14 +1,16 @@
-const { mercadopago } = require("../../services/mercadopago");
+const preference = require('#services/mercadopago');
 const { Orders } = require('../../db.js');
-const URL_BASE = "https://pinturas-app-front-git-pre-develop-pf-pinturas.vercel.app";
+const { FRONT_URL_BASE, DEPLOY_URL_BASE } = require('#constants');
 
-const paymentOrderController = async ({ idOrder, }) => {
+
+const paymentOrderController = async ({ idOrder }) => {
 
     const order = await Orders.findByPk(idOrder);
     if (!order) throw Error("Error: No se encontro la orden");
+
     const products = order.products;
 
-    const preference = {
+    const body = {
 
         items: products.map(productJson => {
             let parsedProduct = JSON.parse(productJson);
@@ -33,17 +35,17 @@ const paymentOrderController = async ({ idOrder, }) => {
 
         }),
         back_urls: {
-            failure: `${URL_BASE}/payment/failure`,
-            pending: `${URL_BASE}/payment/pending`,
-            success: `${URL_BASE}/payment/successful`
+            failure: `${FRONT_URL_BASE}/payment/failure`,
+            pending: `${FRONT_URL_BASE}/payment/pending`,
+            success: `${FRONT_URL_BASE}/payment/successful`
         },
-        notification_url:
-            "https://back-server-pinturas-app.onrender.com" +
-            `/orders/webhook/${idOrder}`,
+        notification_url: `${DEPLOY_URL_BASE}/orders/webhook/${idOrder}`,
     };
 
-    const orderMeli = await mercadopago.preferences.create(preference);
-    return orderMeli;
+    const createdPreference = preference.create({ body });
+
+    return createdPreference;
+
 };
 
 module.exports = paymentOrderController;

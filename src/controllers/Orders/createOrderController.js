@@ -1,4 +1,3 @@
-// const { mercadopago } = require("../../services/mercadopago");
 const { Orders, Users } = require("../../db");
 
 const createOrderController = async (products, idUser) => {
