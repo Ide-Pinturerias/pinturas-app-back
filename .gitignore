@@ -38,3 +38,6 @@ src/assets/blogs/*
 
 # DB Backups
 *.sql*
+
+# act configuration file
+.actrc
