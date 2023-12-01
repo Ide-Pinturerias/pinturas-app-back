@@ -1,19 +1,12 @@
-const { Carts, Users } = require('../../db');
+const { Carts, Users } = require('#DB_CONNECTION');
 const { v4 } = require('uuid');
 
-class UserError extends Error {
-    constructor(message, status) {
-        super(message);
-        this.name = 'UserError';
-        this.status = status;
-    }
-}
+const { USER_NOT_FOUND_ERROR } = require("#ERRORS");
 
 const createOrFindCartController = async ({ idUser }) => {
 
     const user = await Users.findByPk(idUser) || null;
-    // if (!user) throw new Error('User not found');
-    if (!user) throw new UserError('User not found', 404);
+    if (!user) throw new USER_NOT_FOUND_ERROR('User not found');
 
     const cart = await user.getCart();
 

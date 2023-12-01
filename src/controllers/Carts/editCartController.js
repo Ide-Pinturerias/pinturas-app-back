@@ -1,42 +1,16 @@
-const { Carts } = require('../../db');
+const { Carts } = require('#DB_CONNECTION');
+const {
+    BAD_FORMAT_JSON_ERROR,
+    CART_NOT_FOUND_ERROR,
+    MISSING_PARAMS_ERROR
+} = require('#ERRORS');
 
 
-class BadFormatJSON extends Error {
-    constructor(message, status) {
-        super(message);
-        this.name = 'BadFormatJSON';
-        this.status = status;
+const editCartController = async ({ idUser, idCart, products = "{}" }) => {
+
+    if (!idUser && !idCart) {
+        throw new MISSING_PARAMS_ERROR('Missing params', 400);
     }
-}
-
-// class NoUserFound extends Error {
-//     constructor(message, status) {
-//         super(message);
-//         this.name = 'NoUserFound';
-//         this.status = status;
-//     }
-// }
-
-class NoCartFound extends Error {
-    constructor(message, status) {
-        super(message);
-        this.name = 'NoCartFound';
-        this.status = status;
-    }
-}
-
-
-const editCartController = async ({ userId, idCart, products }) => {
-
-    // console.log('userId: ', userId);
-    // console.log('idCart: ', idCart);
-    // console.log('products: ', products);
-
-    // const user = userId && await Users.findOne({
-    //     where: {
-    //         id: userId
-    //     }
-    // });
 
     const cart = idCart ? await Carts.findOne({
         where: {
@@ -44,23 +18,20 @@ const editCartController = async ({ userId, idCart, products }) => {
         }
     }) : await Carts.findOne({
         where: {
-            userId
+            userId: idUser
         }
     });
 
-    // if (!user) {
-    //     throw new NoUserFound('No user found', 404);
-    // }
 
     if (!cart) {
-        throw new NoCartFound('No cart found', 404);
+        throw new CART_NOT_FOUND_ERROR('Cart not found', 404);
     }
 
     try {
         JSON.parse(products);
     }
     catch (error) {
-        throw new BadFormatJSON('Bad format JSON', 400);
+        throw new BAD_FORMAT_JSON_ERROR('Bad format JSON', 400);
     }
 
     const newCart = await cart.update({

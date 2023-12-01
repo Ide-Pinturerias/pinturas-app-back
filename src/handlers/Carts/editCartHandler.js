@@ -1,22 +1,13 @@
-const { CartsControllers } = require('../../controllers');
+const { CartsControllers } = require('#CONTROLLERS');
 const { editCart } = CartsControllers;
 
 const editCartHandler = async (req, res) => {
 
     try {
 
-        const { userId, idCart, products } = req.body;
+        const { idUser, idCart, products } = req.body;
 
-        if (!userId && !idCart) {
-
-            return res.status(400).json({
-                status: 'fail',
-                message: 'You must provide an idCart or an userId',
-            });
-
-        }
-
-        const editedCart = await editCart({ userId, idCart, products });
+        const editedCart = await editCart({ idUser, idCart, products });
 
         return res.status(200).json(editedCart);
 

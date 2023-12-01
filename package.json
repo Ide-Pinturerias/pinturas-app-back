@@ -41,8 +41,12 @@
     },
     "http.proxySupport": "off",
     "imports": {
-        "#constants": "./src/constants.js",
-        "#services/*": "./src/services/*.js"
+        "#CONSTANTS": "./src/constants.js",
+        "#SERVICES/*": "./src/services/*.js",
+        "#DB_CONNECTION": "./src/db.js",
+        "#ERRORS": "./src/errors/index.js",
+        "#CONTROLLERS": "./src/controllers/index.js",
+        "#HANDLERS": "./src/handlers/index.js"
     },
     "keywords": [],
     "license": "ISC",

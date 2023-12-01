@@ -1,4 +1,4 @@
-const { CartsControllers } = require('../../controllers');
+const { CartsControllers } = require('#CONTROLLERS');
 const { createOrFindCart } = CartsControllers;
 
 const createOrFindCartHandler = async (req, res) => {
@@ -9,15 +9,12 @@ const createOrFindCartHandler = async (req, res) => {
 
         const cart = await createOrFindCart({ idUser });
 
-        return res.status(200).json(cart);
+        return res.status(201).json(cart);
     }
 
     catch (error) {
 
         console.error(error);
-
-        console.log('error.status: ', error.status);
-        console.log('error.message: ', error.message);
 
         return res.status(error.status || 500).json({
             name: error.name,

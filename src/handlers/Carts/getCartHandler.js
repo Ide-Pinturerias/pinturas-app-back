@@ -1,27 +1,19 @@
 const { CartsControllers } = require('#CONTROLLERS');
-const { deleteCart } = CartsControllers;
+const { getCart } = CartsControllers;
 
-const deleteCartHandler = async (req, res) => {
-
-    const { idUser, idCart } = req.body;
-
+const getCartHandler = async (req, res) => {
     try {
-
-        const cart = await deleteCart({ idUser, idCart });
-
+        const { idCart, idUser } = req.query;
+        const cart = await getCart({ idCart, idUser });
         return res.status(200).json(cart);
-
-    } catch (error) {
-
+    }
+    catch (error) {
         console.error(error);
-
         return res.status(error.status || 500).json({
             name: error.name,
             message: error.message
         });
-
     }
-
 };
 
-module.exports = deleteCartHandler;
+module.exports = getCartHandler;

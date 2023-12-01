@@ -1,20 +1,17 @@
 const { Router } = require('express');
-const { CartsHandlers } = require('../handlers');
+const { CartsHandlers } = require('#HANDLERS');
 
 const router = Router();
 
 // 1. Get cart by idCart or idUser
-router.get('/', CartsHandlers.getCarts);
-// 2. Create cart
-router.post('/', CartsHandlers.createCart);
-// 3. Add cart to user
-router.post('/add', CartsHandlers.addCartToUser);
-// 4. Delete cart
-router.delete('/', CartsHandlers.deleteCart);
-// 5. Edit cart
+router.get('/', CartsHandlers.getCart);
+// 2. Get all carts
+router.get('/all', CartsHandlers.getCarts);
+// 3. Create or find cart by idUser
+router.post('/', CartsHandlers.createOrFindCart);
+// 4. Edit cart
 router.put('/', CartsHandlers.editCart);
-// 6. Create or find cart
-router.post('/createOrFind', CartsHandlers.createOrFindCart);
-
+// 5. Delete cart
+router.delete('/', CartsHandlers.deleteCart);
 
 module.exports = router;
