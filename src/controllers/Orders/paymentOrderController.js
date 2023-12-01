@@ -1,6 +1,6 @@
-const preference = require('#services/mercadopago');
-const { Orders } = require('../../db.js');
-const { FRONT_URL_BASE, DEPLOY_URL_BASE } = require('#constants');
+const preference = require('#SERVICES/mercadopago');
+const { Orders } = require('#DB_CONNECTION');
+const { FRONT_URL_BASE, DEPLOY_URL_BASE } = require('#CONSTANTS');
 
 
 const paymentOrderController = async ({ idOrder }) => {
