@@ -1,6 +1,6 @@
 {
     "name": "IDE Pinturas App Backend API",
-    "version": "1.2.0",
+    "version": "2.1.0",
     "description": "This is the backend API for the IDE Pinturas App",
     "repository": {
         "type": "git",
@@ -83,6 +83,13 @@
                 "method": "POST",
                 "url": "/reviews",
                 "description": "Create reviews"
+            }
+        },
+        "carts": {
+            "getCart": {
+                "method": "GET",
+                "url": "/carts",
+                "description": "Get cart"
             }
         }
     }

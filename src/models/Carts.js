@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
             primaryKey: true
         },
         products: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
+            type: DataTypes.STRING,
         }
     }, {
         timestamps: true,

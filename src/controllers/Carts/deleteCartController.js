@@ -1,6 +1,15 @@
-const { Users, Carts } = require('../../db');
+const { Users, Carts } = require('#DB_CONNECTION');
+const {
+    MISSING_PARAMS_ERROR,
+    USER_NOT_FOUND_ERROR,
+    CART_NOT_FOUND_ERROR
+} = require('#ERRORS');
 
-const deleteUserController = async ({ idUser, idCart }) => {
+const deleteCartController = async ({ idUser, idCart }) => {
+
+    if (!idUser && !idCart) {
+        throw new MISSING_PARAMS_ERROR('Missing params', 400);
+    }
 
     const user = idUser ? await Users.findOne({
         where: {
@@ -8,18 +17,22 @@ const deleteUserController = async ({ idUser, idCart }) => {
         }
     }) : null;
 
+    if (!user) {
+        throw new USER_NOT_FOUND_ERROR('User not found', 404);
+    }
+
     const cart = idCart ? await Carts.findOne({
         where: {
             idCart
         }
     }) : await Carts.findOne({
         where: {
-            idUser
+            userId: idUser
         }
     }) || null;
 
-    if (!cart && !user) {
-        throw new Error('No user or cart found');
+    if (!cart) {
+        throw new CART_NOT_FOUND_ERROR('Cart not found', 404);
     }
 
     await user.update({
@@ -32,4 +45,4 @@ const deleteUserController = async ({ idUser, idCart }) => {
 
 };
 
-module.exports = deleteUserController;
+module.exports = deleteCartController;

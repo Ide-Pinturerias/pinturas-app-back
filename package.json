@@ -12,7 +12,7 @@
         "express-rate-limit": "^7.0.1",
         "https": "^1.0.0",
         "jsonwebtoken": "^9.0.2",
-        "mercadopago": "^1.5.17",
+        "mercadopago": "2.0.5",
         "moment": "^2.29.4",
         "morgan": "^1.10.0",
         "multer": "1.4.5-lts.1",
@@ -40,6 +40,14 @@
         "extends": "standard"
     },
     "http.proxySupport": "off",
+    "imports": {
+        "#CONSTANTS": "./src/constants.js",
+        "#SERVICES/*": "./src/services/*.js",
+        "#DB_CONNECTION": "./src/db.js",
+        "#ERRORS": "./src/errors/index.js",
+        "#CONTROLLERS": "./src/controllers/index.js",
+        "#HANDLERS": "./src/handlers/index.js"
+    },
     "keywords": [],
     "license": "ISC",
     "main": "index.js",
@@ -54,7 +62,8 @@
         "resetUsers": "node ./scripts/resetUsers.js",
         "secureImages": "node ./scripts/secureImages.js",
         "setProviderToProducts": "node ./scripts/setProviderToProducts.js",
-        "start": "nodemon -L --trace-warnings"
+        "dev": "nodemon -L --trace-warnings",
+        "start": "node index.js"
     },
     "version": "2.0.0"
 }

@@ -1,21 +1,9 @@
-const { CartsControllers } = require('../../controllers');
-const { getCarts, findCartById } = CartsControllers;
+const { CartsControllers } = require('#CONTROLLERS');
+const { getCarts } = CartsControllers;
 
-const getCartsHandler = async (req, res) => {
+const getCartsHandler = async (_req, res) => {
 
     try {
-
-        const { idCart, idUser } = req.query;
-
-        if (idCart || idUser) {
-
-            const cart = await findCartById({ idCart, idUser });
-
-            return res.status(200).json({
-                status: 'success',
-                cart,
-            });
-        }
 
         const carts = await getCarts();
 
@@ -27,15 +15,11 @@ const getCartsHandler = async (req, res) => {
     }
 
     catch (error) {
-
         console.error(error);
-
-        return res.status(500).json({
+        return res.status(error.status || 500).json({
             name: error.name,
-            routine: error.routine,
-            detail: error.detail,
+            message: error.message
         });
-
     }
 
 };
