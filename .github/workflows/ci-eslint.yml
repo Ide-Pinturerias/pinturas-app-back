@@ -1,4 +1,4 @@
-name: Node CI - Eslint
+name: Node CI - Eslint - Tests
 
 on:
   push:
@@ -40,3 +40,6 @@ jobs:
 
       - name: Run Eslint
         run: pnpm lint
+
+      - name: Run Tests
+        run: pnpm test
