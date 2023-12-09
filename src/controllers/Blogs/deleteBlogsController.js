@@ -1,17 +1,28 @@
-const { Blogs } = require("../../db.js");
+const { Blogs } = require("#DB_CONNECTION");
+const decodedToken = require("#SERVICES/decodedJwt");
+const {
+    BLOG_NOT_FOUND_ERROR,
+    MISSING_AUTHORIZATION_TOKEN_ERROR,
+    INVALID_AUTHORIZATION_TOKEN_ERROR,
+} = require("#ERRORS");
 
-const deleteBlogsController = async (id) => {
-  // Buscar el blog por su ID en la base de datos
-  const blog = await Blogs.findByPk(id);
+const deleteBlogsController = async ({ blogId, token }) => {
 
-  if (!blog) throw Error("BLOG NO ENCONTRADO");
+    if (!token) throw new MISSING_AUTHORIZATION_TOKEN_ERROR("Missing authorization token");
 
-  await blog
-    .update({ active: false })
-    .then((blogDeleted) => blogDeleted)
-    .catch((error) => {
-      throw error;
-    });
+    const authorization = decodedToken(token);
+
+    if (authorization.rol !== 'admin') {
+        throw new INVALID_AUTHORIZATION_TOKEN_ERROR("Invalid authorization token");
+    }
+
+    const blog = await Blogs.findByPk(blogId);
+
+    if (!blog) throw new BLOG_NOT_FOUND_ERROR(`Blog with id ${blogId} not found`);
+
+    await blog.update({ active: false });
+
+    return blog;
 };
 
 module.exports = deleteBlogsController;

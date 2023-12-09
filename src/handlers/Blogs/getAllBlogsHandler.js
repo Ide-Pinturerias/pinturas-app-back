@@ -1,4 +1,4 @@
-const { BlogsControllers } = require("../../controllers");
+const { BlogsControllers } = require("#CONTROLLERS");
 const { getAllBlogs } = BlogsControllers;
 
 const getAllBlogsHandler = async (req, res) => {
@@ -10,7 +10,10 @@ const getAllBlogsHandler = async (req, res) => {
         });
 
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(error.status || 500).json({
+            name: error.name,
+            message: error.message
+        });
     }
 };
 

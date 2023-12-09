@@ -6,7 +6,7 @@ const { USER_NOT_FOUND_ERROR } = require("#ERRORS");
 const createOrFindCartController = async ({ idUser }) => {
 
     const user = await Users.findByPk(idUser) || null;
-    if (!user) throw new USER_NOT_FOUND_ERROR('User not found');
+    if (!user) throw new USER_NOT_FOUND_ERROR(`User with id ${idUser} not found`);
 
     const cart = await user.getCart();
 

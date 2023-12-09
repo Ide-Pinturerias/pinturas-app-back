@@ -1,39 +1,33 @@
-const { BlogsControllers } = require("../../controllers");
+const { BlogsControllers } = require("#CONTROLLERS");
 const { createBlogs } = BlogsControllers;
-const { uploadImage } = require("../../services/cloudinary");
-const decodedToken = require("../../services/decodedJwt");
 
 const createBlogsHandler = async (req, res) => {
-    //AUTORIZACION
-    const token = req.header('Authorization');
-    if (!token) return res.status(401).json({
-        error: "Falta el token de autorización"
-    });
 
     try {
-        const authorization = decodedToken(token);
+        //AUTORIZACION
+        const token = req.header('Authorization');
 
-        if (authorization.rol !== "admin") {
-
-            return res.status(403).json({
-                error: "No cuentas con los permisos para esta sección"
-            });
-        }
-        if (req.file) {
-            const secure_url = await uploadImage(req.file);
-
-            req.body.image = secure_url;
-        }
-
-        const postBlog = await createBlogs(req.body, authorization.id);
+        const createdBlog = await createBlogs({
+            blog: req.body,
+            token,
+            file: req.file,
+        });
 
         return res.status(201).json({
             status: "success",
             message: "Blog creado correctamente",
-            blog: postBlog,
+            blog: createdBlog,
         });
+
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+
+        console.error(error);
+
+        return res.status(error.status || 500).json({
+            name: error.name,
+            message: error.message
+        });
+
     }
 };
 

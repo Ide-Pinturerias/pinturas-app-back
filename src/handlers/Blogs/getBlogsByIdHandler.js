@@ -1,16 +1,11 @@
-const { BlogsControllers } = require("../../controllers");
+const { BlogsControllers } = require("#CONTROLLERS");
 const { getBlogsById } = BlogsControllers;
 
 const getBlogsByIdHandler = async (req, res) => {
+
     try {
         const { id } = req.params;
-        const blog = await getBlogsById(id);
-
-        if (!blog)
-            return res.status(404).json({
-                status: "fail",
-                message: "Blog no encontrado",
-            });
+        const blog = await getBlogsById({ blogId: id });
 
         return res.status(200).json({
             status: "success",
@@ -19,8 +14,12 @@ const getBlogsByIdHandler = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ error: error.message });
+        return res.status(error.status || 500).json({
+            name: error.name,
+            message: error.message
+        });
     }
+
 };
 
 module.exports = getBlogsByIdHandler;

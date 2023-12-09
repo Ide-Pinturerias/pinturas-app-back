@@ -1,8 +1,8 @@
-const { Blogs } = require("../../db.js");
+const { Blogs } = require("#DB_CONNECTION");
 
-const getBlogsByIdController = async (id) => {
-  const blog = await Blogs.findByPk(id);
-  return blog;
+const getBlogsByIdController = async ({ blogId }) => {
+    const blog = await Blogs.findByPk(blogId);
+    return blog;
 };
 
 module.exports = getBlogsByIdController;

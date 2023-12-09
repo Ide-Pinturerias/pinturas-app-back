@@ -18,7 +18,7 @@ const deleteCartController = async ({ idUser, idCart }) => {
     }) : null;
 
     if (!user) {
-        throw new USER_NOT_FOUND_ERROR('User not found', 404);
+        throw new USER_NOT_FOUND_ERROR(`User with id ${idUser} not found`, 404);
     }
 
     const cart = idCart ? await Carts.findOne({

@@ -42,6 +42,28 @@ const BAD_FORMAT_JSON_ERROR = class extends Error {
     }
 };
 
+const BLOG_NOT_FOUND_ERROR = class extends RESOURCE_NOT_FOUND_ERROR {
+    constructor(message, status = 404) {
+        super(message, 'BLOG', status);
+    }
+};
+
+const MISSING_AUTHORIZATION_TOKEN_ERROR = class extends Error {
+    constructor(message, status = 401) {
+        super(message);
+        this.name = 'MISSING_AUTHORIZATION_TOKEN_ERROR';
+        this.status = status;
+    }
+};
+
+const INVALID_AUTHORIZATION_TOKEN_ERROR = class extends Error {
+    constructor(message, status = 403) {
+        super(message);
+        this.name = 'INVALID_AUTHORIZATION_TOKEN_ERROR';
+        this.status = status;
+    }
+};
+
 
 
 module.exports = {
@@ -49,5 +71,8 @@ module.exports = {
     USER_NOT_FOUND_ERROR,
     MISSING_PARAMS_ERROR,
     DB_CONNECTION_ERROR,
-    BAD_FORMAT_JSON_ERROR
+    BAD_FORMAT_JSON_ERROR,
+    BLOG_NOT_FOUND_ERROR,
+    MISSING_AUTHORIZATION_TOKEN_ERROR,
+    INVALID_AUTHORIZATION_TOKEN_ERROR,
 };
