@@ -1,4 +1,4 @@
-const { Users } = require('../../db');
+const { Users } = require('#DB_CONNECTION');
 
 const getUsersController = async () => {
     const usersDb = await Users.findAll();

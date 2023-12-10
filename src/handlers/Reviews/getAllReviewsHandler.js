@@ -1,4 +1,4 @@
-const { ReviewsControllers } = require("../../controllers");
+const { ReviewsControllers } = require("#CONTROLLERS");
 const { getAllReviews } = ReviewsControllers;
 
 const getAllReviewsHandler = async (req, res) => {

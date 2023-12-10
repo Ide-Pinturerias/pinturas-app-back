@@ -1,4 +1,4 @@
-const { Reviews, Orders, Products } = require("../../db.js");
+const { Reviews, Orders, Products } = require("#DB_CONNECTION");
 
 
 const createReviewController = async ({ orderId,
@@ -15,12 +15,6 @@ const createReviewController = async ({ orderId,
 
     const newReview = await Reviews.create({ description, rating });
 
-    // console.log({
-    //     orderId,
-    //     description, rating, productsReviews
-    // });
-
-
     // Actualizamos el rating de los productos
     await Promise.all(productsReviews.map(async (productReview) => {
         const parsedProductReview = JSON.parse(productReview);
@@ -32,13 +26,6 @@ const createReviewController = async ({ orderId,
         const den = (productRatingCount + 1);
         const newProductRating = num / den;
         const roundRating = Math.floor(newProductRating);
-        // if(roundRating > 5) throw new Error('El rating no puede ser mayor a
-        // 5');
-        // console.log(`Este producto tiene ${productRatingCount} reviews`);
-        // console.log(`El rating del producto es ${productRating}`);
-        // console.log(`El nuevo rating del producto es ${newProductRating}`);
-        // console.log(`El nuevo rating del producto redondeado es ${roundRating}`);
-        // console.log('roundRating', roundRating);
         await product.update({
             rating: roundRating,
             nroReviews: productRatingCount + 1

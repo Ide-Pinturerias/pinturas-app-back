@@ -1,4 +1,5 @@
-const { Users } = require('../../db');
+const { Users } = require('#DB_CONNECTION');
+
 const getUserByIdController = async (id) => {
 
     if (id) {

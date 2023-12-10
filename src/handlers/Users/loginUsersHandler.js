@@ -1,4 +1,4 @@
-const { UsersControllers } = require('../../controllers');
+const { UsersControllers } = require('#CONTROLLERS');
 const { loginUsers } = UsersControllers;
 
 const loginUsersHandler = async (req, res) => {

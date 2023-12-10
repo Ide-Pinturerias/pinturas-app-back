@@ -1,6 +1,6 @@
-const { UsersControllers } = require('../../controllers');
+const { UsersControllers } = require('#CONTROLLERS');
 const { getUsers } = UsersControllers;
-const decodedToken = require("../../services/decodedJwt");
+const decodedToken = require("#SERVICES/decodedJwt");
 
 const getUsersHandler = async (req, res) => {
 

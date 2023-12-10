@@ -1,4 +1,4 @@
-const { UsersControllers } = require('../../controllers');
+const { UsersControllers } = require('#CONTROLLERS');
 const { deleteUser } = UsersControllers;
 
 const deleteUserHandler = async (req, res) => {

@@ -1,5 +1,5 @@
-const { Users } = require('../../db');
-const { createToken } = require("../../services/jwt");
+const { Users } = require('#DB_CONNECTION');
+const { createToken } = require("#SERVICES/jwt");
 
 const loginAuthZeroController = async (user) => {
 

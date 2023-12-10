@@ -1,4 +1,4 @@
-const { UsersControllers, CartsControllers } = require('../../controllers');
+const { UsersControllers, CartsControllers } = require('#CONTROLLERS');
 const { registerUser } = UsersControllers;
 const { createCart } = CartsControllers;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*_-]{8,}$/;

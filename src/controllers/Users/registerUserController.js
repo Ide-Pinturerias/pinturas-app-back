@@ -1,4 +1,4 @@
-const { Users } = require('../../db');
+const { Users } = require('#DB_CONNECTION');
 const bcrypt = require("bcrypt");
 
 const registerUserController = async ({ email, password, rol = "client", name,

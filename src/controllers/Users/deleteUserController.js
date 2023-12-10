@@ -1,4 +1,4 @@
-const { Users } = require("../../db");
+const { Users } = require("#DB_CONNECTION");
 
 const deleteUserController = async (id) => {
     const user = await Users.findByPk(id);
