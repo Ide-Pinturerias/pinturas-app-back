@@ -64,7 +64,19 @@ const INVALID_AUTHORIZATION_TOKEN_ERROR = class extends Error {
     }
 };
 
+const PRODUCT_NOT_FOUND_ERROR = class extends RESOURCE_NOT_FOUND_ERROR {
+    constructor(message, status = 404) {
+        super(message, 'PRODUCT', status);
+    }
+};
 
+const ALREADY_FAVORITE_ERROR = class extends Error {
+    constructor(message, status = 409) {
+        super(message);
+        this.name = 'ALREADY_FAVORITE_ERROR';
+        this.status = status;
+    }
+};
 
 module.exports = {
     CART_NOT_FOUND_ERROR,
@@ -75,4 +87,6 @@ module.exports = {
     BLOG_NOT_FOUND_ERROR,
     MISSING_AUTHORIZATION_TOKEN_ERROR,
     INVALID_AUTHORIZATION_TOKEN_ERROR,
+    PRODUCT_NOT_FOUND_ERROR,
+    ALREADY_FAVORITE_ERROR
 };
