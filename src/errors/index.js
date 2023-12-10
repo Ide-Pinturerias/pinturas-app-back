@@ -84,6 +84,14 @@ const PROVIDER_NOT_FOUND_ERROR = class extends RESOURCE_NOT_FOUND_ERROR {
     }
 };
 
+const PROVIDER_NOT_ACTIVE_ERROR = class extends Error {
+    constructor(message, status = 409) {
+        super(message);
+        this.name = 'PROVIDER_NOT_ACTIVE_ERROR';
+        this.status = status;
+    }
+};
+
 module.exports = {
     CART_NOT_FOUND_ERROR,
     USER_NOT_FOUND_ERROR,
