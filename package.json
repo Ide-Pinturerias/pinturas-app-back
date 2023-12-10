@@ -1,8 +1,9 @@
 {
-    "author": "",
+    "author": "IDE Pinturerías Dev Team",
     "dependencies": {
         "bcrypt": "^5.1.1",
         "body-parser": "^1.20.2",
+        "chai": "^4.3.10",
         "cloudinary": "^1.41.0",
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
@@ -42,9 +43,19 @@
         "#DB_CONNECTION": "./src/db.js",
         "#ERRORS": "./src/errors/index.js",
         "#CONTROLLERS": "./src/controllers/index.js",
-        "#HANDLERS": "./src/handlers/index.js"
+        "#HANDLERS": "./src/handlers/index.js",
+        "#TESTS/*": "./src/tests/*/index.js",
+        "#UTILS/*": "./src/utils/*.js"
     },
-    "keywords": [],
+    "keywords": [
+        "REST API",
+        "BACKEND",
+        "EXPRESS",
+        "NODE",
+        "POSTGRESQL",
+        "SEQUELIZE",
+        "JAVASCRIPT"
+    ],
     "license": "ISC",
     "main": "index.js",
     "name": "api",
@@ -61,7 +72,9 @@
         "deps-check": "pnpx npm-check",
         "dev": "nodemon -L --trace-warnings",
         "start": "node index.js",
-        "test": "mocha src/test/index.test.js"
+        "test": "mocha src/tests/index.spec.js --timeout 3000",
+        "test-env": "mocha src/tests/env.spec.js --timeout 1000",
+        "run-actions": "gh act -P ubuntu-20.04=nektos/act-environments-ubuntu:20.04"
     },
     "version": "2.0.0"
 }
