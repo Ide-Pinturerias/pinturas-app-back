@@ -1,13 +1,9 @@
-const { MailControllers } = require('../../controllers');
+const { MailControllers } = require('#CONTROLLERS');
 const { sendOrderEmail } = MailControllers;
 
 const sendOrderEmailHandler = async (req, res) => {
 
     const { email, message } = req.body;
-
-    if (!email || !message) return res.status(400).json({
-        message: "Missing required fields"
-    });
 
     try {
 
@@ -18,7 +14,10 @@ const sendOrderEmailHandler = async (req, res) => {
     }
     catch (error) {
         console.log(error);
-        return res.status(500).json({ message: error.message });
+        return res.status(error.status || 500).json({
+            name: error.name,
+            message: error.message,
+        });
     }
 
 };
