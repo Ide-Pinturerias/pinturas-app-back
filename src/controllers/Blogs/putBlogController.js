@@ -1,6 +1,6 @@
 const { Blogs } = require('#DB_CONNECTION');
 const decodedToken = require('#SERVICES/decodedJwt');
-const uploadImage = require('#SERVICES/cloudinary');
+const { uploadImage } = require('#SERVICES/cloudinary');
 const {
     BLOG_NOT_FOUND_ERROR,
     MISSING_AUTHORIZATION_TOKEN_ERROR,

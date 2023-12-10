@@ -2,6 +2,7 @@ const { Products, Providers } = require('#DB_CONNECTION');
 const calculatePrice = require("#UTILS/calculatePrice");
 const decodedToken = require("#SERVICES/decodedJwt");
 const { IVA } = require("#CONSTANTS");
+const { uploadImage } = require("#SERVICES/cloudinary");
 const {
     MISSING_PARAMS_ERROR, PRODUCT_NOT_FOUND_ERROR, PROVIDER_NOT_FOUND_ERROR,
     MISSING_AUTHORIZATION_TOKEN_ERROR, INVALID_AUTHORIZATION_TOKEN_ERROR,
