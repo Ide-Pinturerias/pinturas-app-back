@@ -1,4 +1,4 @@
-const { Orders } = require("../../db.js");
+const { Orders } = require("#DB_CONNECTION");
 
 const editOrderController = async (id, order) => {
   // Buscar la orden por su ID en la base de datos

@@ -1,4 +1,4 @@
-const { Orders, Products } = require("../../db");
+const { Orders, Products } = require("#DB_CONNECTION");
 
 const webHookController = async ({ idOrder, action, bodySTR, querySTR }) => {
 
@@ -18,8 +18,7 @@ const webHookController = async ({ idOrder, action, bodySTR, querySTR }) => {
                 stock: Math.max(0, dbProduct.stock - product.quantity)
             });
         });
-        // if (bodySTR) order.meliBody = bodySTR;
-        // if (querySTR) order.meliQuery = querySTR;
+
         await order.update({
             meliBody: bodySTR,
             meliQuery: querySTR,

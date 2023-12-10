@@ -1,4 +1,4 @@
-const { OrdersControllers } = require('../../controllers');
+const { OrdersControllers } = require('#CONTROLLERS');
 const { webHook } = OrdersControllers;
 
 const webHookHandler = async (req, res) => {

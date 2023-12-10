@@ -1,4 +1,4 @@
-const { Orders } = require('../../db');
+const { Orders } = require('#DB_CONNECTION');
 
 const getOrdersController = async ({ idUser, state, idOrder }) => {
 

@@ -1,4 +1,4 @@
-const { Users } = require("../../db");
+const { Users } = require("#DB_CONNECTION");
 
 const getBlogsByIdController = async (userId) => {
     const user = await Users.findByPk(userId);
