@@ -1,5 +1,5 @@
-const { cloudinary } = require('../../services/cloudinary');
-const { Products } = require('../../db');
+const { cloudinary } = require('#SERVICES/cloudinary');
+const { Products } = require('#DB_CONNECTION');
 
 const uploadImageController = async (id) => {
     const product = await Products.findByPk(id);

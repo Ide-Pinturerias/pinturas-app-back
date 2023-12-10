@@ -78,6 +78,12 @@ const ALREADY_FAVORITE_ERROR = class extends Error {
     }
 };
 
+const PROVIDER_NOT_FOUND_ERROR = class extends RESOURCE_NOT_FOUND_ERROR {
+    constructor(message, status = 404) {
+        super(message, 'PROVIDER', status);
+    }
+};
+
 module.exports = {
     CART_NOT_FOUND_ERROR,
     USER_NOT_FOUND_ERROR,

@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { Products } = require('../../db.js');
+const { Products } = require('#DB_CONNECTION');
 const PRODUCTS_PER_PAGE = 12;
 
 const filterAndOrderProductsController = async ({

@@ -1,6 +1,6 @@
-const { ProductsControllers } = require('../../controllers');
+const { ProductsControllers } = require('#CONTROLLERS');
 const { updatePrices } = ProductsControllers;
-const decodedToken = require("../../services/decodedJwt");
+const decodedToken = require("#SERVICES/decodedJwt");
 
 const updatePricesHandler = async (req, res) => {
     //AUTORIZACION

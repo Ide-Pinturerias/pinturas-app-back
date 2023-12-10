@@ -1,4 +1,4 @@
-const { ProductsControllers } = require('../../controllers');
+const { ProductsControllers } = require('#CONTROLLERS');
 const { filterAndOrderProducts } = ProductsControllers;
 
 const getAllProductsHandler = async (req, res) => {

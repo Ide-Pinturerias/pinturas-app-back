@@ -1,4 +1,4 @@
-const { Products } = require('../../db.js');
+const { Products } = require('#DB_CONNECTION');
 
 const getAllProductsController = async () => {
     const dbProductsResults = await Products.findAll();

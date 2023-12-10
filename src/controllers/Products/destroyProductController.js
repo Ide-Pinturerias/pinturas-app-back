@@ -1,9 +1,11 @@
-const { Products } = require('../../db.js');
+const { Products } = require('#DB_CONNECTION');
+const { MISSING_PARAMS_ERROR, PRODUCT_NOT_FOUND_ERROR } = require('#ERRORS');
 
-const destroyProductController = async (id) => {
-    const product = await Products.findByPk(id);
+const destroyProductController = async ({ productId }) => {
+    if (!productId) throw new MISSING_PARAMS_ERROR("Faltan parametros");
+    const product = await Products.findByPk(productId);
     if (!product) {
-        throw new Error('Product not found');
+        throw new PRODUCT_NOT_FOUND_ERROR("Producto no encontrado");
     }
     await product.destroy();
     return product;
