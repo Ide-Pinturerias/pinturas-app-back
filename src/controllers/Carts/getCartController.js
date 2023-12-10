@@ -9,10 +9,9 @@ const getCartController = async ({ idUser, idCart }) => {
         ? await Carts.findOne({ where: { userId: idUser } })
         : await Carts.findByPk(idCart);
 
-    if (!cart) throw new CART_NOT_FOUND_ERROR('Cart not found');
+    if (!cart) throw new CART_NOT_FOUND_ERROR(`Cart with id ${idCart} not found`);
 
     return {
-        id: cart.id,
         idCart: cart.idCart,
         idUser: cart.userId,
         products: cart.products

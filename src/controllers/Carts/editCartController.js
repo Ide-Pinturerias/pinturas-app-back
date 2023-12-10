@@ -24,7 +24,7 @@ const editCartController = async ({ idUser, idCart, products = "{}" }) => {
 
 
     if (!cart) {
-        throw new CART_NOT_FOUND_ERROR('Cart not found', 404);
+        throw new CART_NOT_FOUND_ERROR(`Cart with id ${idCart} not found`, 404);
     }
 
     try {
