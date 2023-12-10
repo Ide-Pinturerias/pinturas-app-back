@@ -19,7 +19,7 @@ const getProviderByIdController = async ({ providerId, token }) => {
 
     if (!providerId) throw new MISSING_PARAMS_ERROR("Faltan parametros");
 
-    const provider = await Providers.findByPk(id);
+    const provider = await Providers.findByPk(providerId);
     if (!provider) throw new PROVIDER_NOT_FOUND_ERROR(`Proveedor con id ${providerId} no encontrado`);
 
     return provider;

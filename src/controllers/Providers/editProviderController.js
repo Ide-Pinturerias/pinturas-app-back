@@ -4,6 +4,7 @@ const {
     MISSING_PARAMS_ERROR,
     MISSING_AUTHORIZATION_TOKEN_ERROR,
     INVALID_AUTHORIZATION_TOKEN_ERROR,
+    PROVIDER_NOT_FOUND_ERROR,
 } = require("#ERRORS");
 
 const editProvider = async ({ providerId, providerData, token }) => {
