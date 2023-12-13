@@ -1,11 +1,11 @@
 const { BlogsControllers } = require("#CONTROLLERS");
-const { getBlogsById } = BlogsControllers;
+const { getBlogById } = BlogsControllers;
 
-const getBlogsByIdHandler = async (req, res) => {
+const getBlogByIdHandler = async (req, res) => {
 
     try {
         const { id } = req.params;
-        const blog = await getBlogsById({ blogId: id });
+        const blog = await getBlogById({ blogId: id });
 
         return res.status(200).json({
             status: "success",
@@ -22,4 +22,4 @@ const getBlogsByIdHandler = async (req, res) => {
 
 };
 
-module.exports = getBlogsByIdHandler;
+module.exports = getBlogByIdHandler;

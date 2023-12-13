@@ -5,11 +5,14 @@ const {
     BLOG_NOT_FOUND_ERROR,
     MISSING_AUTHORIZATION_TOKEN_ERROR,
     INVALID_AUTHORIZATION_TOKEN_ERROR,
+    MISSING_PARAMS_ERROR,
 } = require('#ERRORS');
 
-const putBlogController = async ({ blogId, blogContent, token, file }) => {
+const editBlogController = async ({ blogId, blogContent, token, file }) => {
 
     if (!token) throw new MISSING_AUTHORIZATION_TOKEN_ERROR("Missing authorization token");
+
+    if (!blogId || !blogContent) throw new MISSING_PARAMS_ERROR("Missing params");
 
     const authorization = decodedToken(token);
 
@@ -26,7 +29,7 @@ const putBlogController = async ({ blogId, blogContent, token, file }) => {
     // Usar el servicio de cloudinary para subir la imagen
     if (file) {
         const image = await uploadImage(file);
-        blogContent.image = image.url;
+        blogContent.image = image;
     }
 
     await blogToEdit.update(blogContent);
@@ -34,4 +37,4 @@ const putBlogController = async ({ blogId, blogContent, token, file }) => {
     return blogToEdit;
 };
 
-module.exports = putBlogController;
+module.exports = editBlogController;

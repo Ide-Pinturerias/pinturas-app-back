@@ -5,12 +5,15 @@ const {
     USER_NOT_FOUND_ERROR,
     MISSING_AUTHORIZATION_TOKEN_ERROR,
     INVALID_AUTHORIZATION_TOKEN_ERROR,
+    MISSING_PARAMS_ERROR,
 } = require("#ERRORS");
 
 
-const createBlogsController = async ({ blog, token, file }) => {
+const createBlogController = async ({ blog, token, file }) => {
 
     if (!token) throw new MISSING_AUTHORIZATION_TOKEN_ERROR("Missing authorization token");
+
+    if (!blog) throw new MISSING_PARAMS_ERROR("Missing params");
 
     const authorization = decodedToken(token);
 
@@ -28,14 +31,16 @@ const createBlogsController = async ({ blog, token, file }) => {
 
     if (file) {
         const image = await uploadImage(file);
-        blog.image = image.url;
+        console.log('> Image uploaded to cloudinary');
+        console.log('>', image);
+        blog.image = image;
     }
 
     const newBlog = await Blogs.create(blog);
 
     await user.addBlog(newBlog);
 
-    return await user.getBlogs();
+    return newBlog;
 };
 
-module.exports = createBlogsController;
+module.exports = createBlogController;

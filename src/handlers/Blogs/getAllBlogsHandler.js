@@ -6,6 +6,7 @@ const getAllBlogsHandler = async (req, res) => {
         const blogs = await getAllBlogs();
         return res.status(200).json({
             status: "success",
+            count: blogs.length,
             blogs: blogs,
         });
 

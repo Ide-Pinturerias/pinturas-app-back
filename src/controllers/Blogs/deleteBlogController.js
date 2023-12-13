@@ -4,11 +4,14 @@ const {
     BLOG_NOT_FOUND_ERROR,
     MISSING_AUTHORIZATION_TOKEN_ERROR,
     INVALID_AUTHORIZATION_TOKEN_ERROR,
+    MISSING_PARAMS_ERROR,
 } = require("#ERRORS");
 
-const deleteBlogsController = async ({ blogId, token }) => {
+const deleteBlogController = async ({ blogId, token }) => {
 
     if (!token) throw new MISSING_AUTHORIZATION_TOKEN_ERROR("Missing authorization token");
+
+    if (!blogId) throw new MISSING_PARAMS_ERROR("Missing params");
 
     const authorization = decodedToken(token);
 
@@ -25,4 +28,4 @@ const deleteBlogsController = async ({ blogId, token }) => {
     return blog;
 };
 
-module.exports = deleteBlogsController;
+module.exports = deleteBlogController;

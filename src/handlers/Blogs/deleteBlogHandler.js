@@ -1,12 +1,12 @@
 const { BlogsControllers } = require("#CONTROLLERS");
-const { deleteBlogs } = BlogsControllers;
+const { deleteBlog } = BlogsControllers;
 
-const deleteBlogsHandler = async (req, res) => {
+const deleteBlogHandler = async (req, res) => {
 
     try {
         const token = req.header('Authorization');
         const { id } = req.params; // TODO: Validar id
-        const deletedBlogs = await deleteBlogs({ blogId: id, token });
+        const deletedBlogs = await deleteBlog({ blogId: id, token });
 
         return res.status(200).json({
             status: "success",
@@ -23,4 +23,4 @@ const deleteBlogsHandler = async (req, res) => {
 
 };
 
-module.exports = deleteBlogsHandler;
+module.exports = deleteBlogHandler;
