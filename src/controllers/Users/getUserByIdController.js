@@ -1,16 +1,21 @@
 const { Users } = require('#DB_CONNECTION');
+const { MISSING_PARAMS_ERROR, USER_NOT_FOUND_ERROR } = require('#ERRORS');
 
-const getUserByIdController = async (id) => {
+const getUserByIdController = async ({ userId }) => {
 
-    if (id) {
-        const findUser = await Users.findByPk(id);
-        if (!findUser) throw Error("USUARIO NO ENCONTRADO");
+    // TODO: Agregar token de autenticación (?)
 
-        delete findUser.dataValues.password;
+    if (!userId) throw new MISSING_PARAMS_ERROR('Missing params');
 
-        return findUser.dataValues;
+    const user = await Users.findByPk(userId);
 
-    }
+    if (!user) throw new USER_NOT_FOUND_ERROR(`User with id ${userId} not found`);
+
+    return {
+        ...user.dataValues,
+        password: undefined
+    };
+
 };
 
 module.exports = getUserByIdController;

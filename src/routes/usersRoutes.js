@@ -5,7 +5,7 @@ const auth = require("../middlewares/auth");
 const router = Router();
 
 // 1. POST /users/register
-router.post('/register', UsersHandlers.registerUser);
+router.post('/register', UsersHandlers.createUser);
 
 // 2. GET /users
 router.get('/', UsersHandlers.getUsers);
@@ -17,7 +17,7 @@ router.post('/login', UsersHandlers.loginUsers);
 router.delete("/:id", UsersHandlers.deleteUser);
 
 //5. PUT /users/:id
-router.put("/:id", UsersHandlers.putUser);
+router.put("/:id", UsersHandlers.editUser);
 
 //6.  GET /users/profile
 router.get("/profile", [auth], UsersHandlers.myProfile);
@@ -32,5 +32,8 @@ router.post("/login-authzero",
 
 //9. GET /users/id
 router.get("/:id", UsersHandlers.getUserById);
+
+//10. POST /users/destroy
+router.post("/destroy", UsersHandlers.destroyUser);
 
 module.exports = router;

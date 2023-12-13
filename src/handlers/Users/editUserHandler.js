@@ -1,14 +1,18 @@
 const { UsersControllers } = require('#CONTROLLERS');
-const { deleteUser } = UsersControllers;
+const { editUser } = UsersControllers;
 
-const deleteUserHandler = async (req, res) => {
+const editUserHandler = async (req, res) => {
+
     try {
         const token = req.header('Authorization');
         const { id } = req.params;
-        const user = await deleteUser({ userId: id, token });
-        return res.status(200).json({
-            usuario: user
+        const result = await editUser({
+            userId: id,
+            token,
+            userContent: req.body
         });
+
+        return res.status(200).json({ usuario: result });
     } catch (error) {
         console.error(error);
         return res.status(error.status || 500).json({
@@ -18,4 +22,4 @@ const deleteUserHandler = async (req, res) => {
     }
 };
 
-module.exports = deleteUserHandler;
+module.exports = editUserHandler;

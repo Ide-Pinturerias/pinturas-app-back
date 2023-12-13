@@ -1,16 +1,19 @@
 const { UsersControllers } = require('#CONTROLLERS');
-const { getUsers } = UsersControllers;
+const { createUser } = UsersControllers;
 
-const getUsersHandler = async (req, res) => {
+const createUserHandler = async (req, res) => {
 
+    const { email, password } = req.body;
 
     try {
-        const token = req.header('Authorization');
-        const users = await getUsers({ token });
+
+        const newUser = await createUser({ email, password, ...req.body });
 
         return res.status(200).json({
+
             status: "success",
-            users
+            user: newUser,
+
         });
 
     } catch (error) {
@@ -22,4 +25,4 @@ const getUsersHandler = async (req, res) => {
     }
 };
 
-module.exports = getUsersHandler;
+module.exports = createUserHandler;

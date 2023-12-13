@@ -5,7 +5,7 @@ const {
     MISSING_PARAMS_ERROR
 } = require("#ERRORS");
 
-const deleteUserController = async ({ userId, token }) => {
+const destroyUserController = async ({ userId, token }) => {
 
     validateToken(token);
 
@@ -15,11 +15,13 @@ const deleteUserController = async ({ userId, token }) => {
 
     if (!user) throw new USER_NOT_FOUND_ERROR(`User with id ${userId} not found`);
 
-    await user.update({ active: false });
-    // TODO: Check if this is necessary or if there is a better way to do it ↓
-    delete user.dataValues.password;
-    return user.dataValues;
+    await user.destroy();
+
+    return {
+        ...user.dataValues,
+        password: undefined
+    };
 
 };
 
-module.exports = deleteUserController;
+module.exports = destroyUserController;

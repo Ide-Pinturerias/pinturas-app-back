@@ -92,6 +92,22 @@ const PROVIDER_NOT_ACTIVE_ERROR = class extends Error {
     }
 };
 
+const INVALID_PASSWORD_ERROR = class extends Error {
+    constructor(message, status = 401) {
+        super(message);
+        this.name = 'INVALID_PASSWORD_ERROR';
+        this.status = status;
+    }
+};
+
+const USER_NOT_EDITABLE_ERROR = class extends Error {
+    constructor(message, status = 403) {
+        super(message);
+        this.name = 'USER_NOT_EDITABLE_ERROR';
+        this.status = status;
+    }
+};
+
 module.exports = {
     CART_NOT_FOUND_ERROR,
     USER_NOT_FOUND_ERROR,
@@ -105,4 +121,6 @@ module.exports = {
     ALREADY_FAVORITE_ERROR,
     PROVIDER_NOT_FOUND_ERROR,
     PROVIDER_NOT_ACTIVE_ERROR,
+    INVALID_PASSWORD_ERROR,
+    USER_NOT_EDITABLE_ERROR
 };

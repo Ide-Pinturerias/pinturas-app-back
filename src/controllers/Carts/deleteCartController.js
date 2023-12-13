@@ -35,7 +35,7 @@ const deleteCartController = async ({ idUser, idCart }) => {
         throw new CART_NOT_FOUND_ERROR(`Cart with id ${idCart} not found`, 404);
     }
 
-    await user.update({
+    await user && user.update({
         idCart: null
     });
 

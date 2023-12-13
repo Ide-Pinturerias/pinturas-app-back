@@ -1,6 +1,8 @@
 const { Users } = require('#DB_CONNECTION');
+const { validateToken } = require('#SERVICES/jwt');
 
-const getUsersController = async () => {
+const getUsersController = async ({ token }) => {
+    validateToken(token);
     const usersDb = await Users.findAll();
     const mappedUsers = usersDb.map(async (user) => {
         // Busco el carrito del usuario
