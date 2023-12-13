@@ -1,24 +1,16 @@
 const { Blogs } = require('#DB_CONNECTION');
-const decodedToken = require('#SERVICES/decodedJwt');
+const { validateToken } = require('#SERVICES/jwt');
 const { uploadImage } = require('#SERVICES/cloudinary');
 const {
     BLOG_NOT_FOUND_ERROR,
-    MISSING_AUTHORIZATION_TOKEN_ERROR,
-    INVALID_AUTHORIZATION_TOKEN_ERROR,
     MISSING_PARAMS_ERROR,
 } = require('#ERRORS');
 
 const editBlogController = async ({ blogId, blogContent, token, file }) => {
 
-    if (!token) throw new MISSING_AUTHORIZATION_TOKEN_ERROR("Missing authorization token");
+    validateToken(token);
 
     if (!blogId || !blogContent) throw new MISSING_PARAMS_ERROR("Missing params");
-
-    const authorization = decodedToken(token);
-
-    if (authorization.rol !== 'admin') {
-        throw new INVALID_AUTHORIZATION_TOKEN_ERROR("Invalid authorization token");
-    }
 
     // Buscar el blog por su ID en la base de datos
     const blogToEdit = await Blogs.findByPk(blogId);
