@@ -72,8 +72,8 @@
         "deps-check": "pnpx npm-check",
         "dev": "nodemon -L --trace-warnings",
         "start": "node index.js",
-        "test": "mocha src/tests/index.spec.js --timeout 3000",
-        "test-env": "mocha src/tests/env.spec.js --timeout 1000",
+        "test": "mocha src/tests/index.spec.js",
+        "test-env": "mocha src/tests/env.spec.js",
         "run-actions": "gh act -P ubuntu-20.04=nektos/act-environments-ubuntu:20.04"
     },
     "version": "2.0.0"
