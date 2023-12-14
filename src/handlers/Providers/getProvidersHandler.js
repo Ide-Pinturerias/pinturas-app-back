@@ -2,8 +2,6 @@ const { ProvidersControllers } = require('#CONTROLLERS');
 const { getProviders } = ProvidersControllers;
 
 const getProvidersHandler = async (req, res) => {
-
-
     try {
         const token = req.header('Authorization');
         const providers = await getProviders({ token });
@@ -14,7 +12,6 @@ const getProvidersHandler = async (req, res) => {
             message: error.message,
         });
     }
-
 };
 
 module.exports = getProvidersHandler;

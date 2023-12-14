@@ -11,7 +11,6 @@ const destroyBlogController = async ({ blogId, token }) => {
 
     if (!blogId) throw new MISSING_PARAMS_ERROR("Missing params");
 
-
     const blog = await Blogs.findByPk(blogId);
 
     if (!blog) throw new BLOG_NOT_FOUND_ERROR(`Blog with id ${blogId} not found`);

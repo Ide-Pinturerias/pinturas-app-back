@@ -1,8 +1,7 @@
 const { ProvidersControllers } = require('#CONTROLLERS');
 const { getProviderById } = ProvidersControllers;
+
 const getProviderByIdHandler = async (req, res) => {
-
-
     try {
         const token = req.header('Authorization');
         const { id } = req.params;

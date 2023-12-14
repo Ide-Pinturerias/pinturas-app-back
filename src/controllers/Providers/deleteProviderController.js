@@ -1,30 +1,22 @@
 const { Providers } = require("#DB_CONNECTION");
-const decodedToken = require("#SERVICES/decodedJwt");
+const { validateToken } = require("#SERVICES/jwt");
 const {
     MISSING_PARAMS_ERROR,
-    MISSING_AUTHORIZATION_TOKEN_ERROR,
-    INVALID_AUTHORIZATION_TOKEN_ERROR,
     PROVIDER_NOT_FOUND_ERROR,
     PROVIDER_NOT_ACTIVE_ERROR
 } = require("#ERRORS");
 
 const deleteProviderController = async ({ providerId, token }) => {
 
-    if (!token) throw new MISSING_AUTHORIZATION_TOKEN_ERROR("Falta token de autorizacion");
+    validateToken(token);
 
-    const authorization = decodedToken(token);
-
-    if (authorization.rol !== 'admin') {
-        throw new INVALID_AUTHORIZATION_TOKEN_ERROR("Invalid authorization token");
-    }
-
-    if (!providerId) throw new MISSING_PARAMS_ERROR("Faltan parametros");
+    if (!providerId) throw new MISSING_PARAMS_ERROR('Missing params');
 
     const provider = await Providers.findByPk(providerId);
 
-    if (!provider) throw new PROVIDER_NOT_FOUND_ERROR(`Proveedor con id ${providerId} no encontrado`);
+    if (!provider) throw new PROVIDER_NOT_FOUND_ERROR(`Provider with id ${providerId} not found`);
 
-    if (provider.active != true) throw new PROVIDER_NOT_ACTIVE_ERROR(`Proveedor con id ${providerId} no activo`);
+    if (provider.active != true) throw new PROVIDER_NOT_ACTIVE_ERROR(`Provider with id ${providerId} is not active`);
 
     await provider.update({ active: false });
 

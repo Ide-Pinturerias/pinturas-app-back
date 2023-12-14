@@ -1,21 +1,13 @@
 const { Providers } = require("#DB_CONNECTION");
-const decodedToken = require("#SERVICES/decodedJwt");
+const { validateToken } = require("#SERVICES/jwt");
 const {
     MISSING_PARAMS_ERROR,
-    MISSING_AUTHORIZATION_TOKEN_ERROR,
-    INVALID_AUTHORIZATION_TOKEN_ERROR,
     PROVIDER_NOT_FOUND_ERROR,
 } = require("#ERRORS");
 
 const editProvider = async ({ providerId, providerData, token }) => {
 
-    if (!token) throw new MISSING_AUTHORIZATION_TOKEN_ERROR("Falta token de autorizacion");
-
-    const authorization = decodedToken(token);
-
-    if (authorization.rol !== 'admin') {
-        throw new INVALID_AUTHORIZATION_TOKEN_ERROR("Invalid authorization token");
-    }
+    validateToken(token);
 
     if (!providerId || !providerData) throw new MISSING_PARAMS_ERROR("Faltan parametros");
 
