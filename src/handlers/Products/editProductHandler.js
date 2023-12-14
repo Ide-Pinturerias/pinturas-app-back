@@ -1,4 +1,4 @@
-const { ProductsControllers } = require('../../controllers');
+const { ProductsControllers } = require('#CONTROLLERS');
 const { editProduct } = ProductsControllers;
 
 const editProductHandler = async (req, res) => {
@@ -23,7 +23,10 @@ const editProductHandler = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ error: error.message });
+        return res.status(error.status || 500).json({
+            name: error.name,
+            message: error.message,
+        });
     }
 
 };

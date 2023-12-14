@@ -6,7 +6,7 @@ const createProductHandler = async (req, res) => {
     try {
         const token = req.header('Authorization');
 
-        const postProduct = await createProduct({
+        const createdProduct = await createProduct({
             product: req.body,
             token,
             file: req.file
@@ -15,7 +15,7 @@ const createProductHandler = async (req, res) => {
         return res.status(201).json({
             status: "success",
             message: "Producto creado exitosamente",
-            product: postProduct
+            product: createdProduct
         });
 
     } catch (error) {

@@ -23,8 +23,8 @@ router.delete("/:id", ProductsHandlers.deleteProduct);
 // 6. POST /products
 router.post("/", [productsUploads.single("image")], ProductsHandlers.createProduct);
 
-// 7. DESTROY /products/destroy/:id
-router.delete("/destroy/:id", ProductsHandlers.destroyProduct);
+// 7. POST /products/destroy/
+router.post("/destroy", ProductsHandlers.destroyProduct);
 
 //8. PUT /products/updatePrices
 router.put("/update/prices", uploadXlsx.single("excelFile"), ProductsHandlers.updatePrices);
