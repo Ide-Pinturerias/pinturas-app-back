@@ -1,12 +1,17 @@
 const { CartsControllers, UsersControllers } = require('#CONTROLLERS');
 const { expect } = require('chai');
 require('dotenv').config();
-const { TOKEN_FOR_TESTS } = process.env;
+const { TOKEN_FOR_TESTS, PASSWORD_FOR_TESTS } = process.env;
+
+const generateDummyUserEmail = () => {
+    const base = Math.random().toString(36).substring(2, 15);
+    return `mocha-${base}@carts-tests.com`;
+};
 
 const USER_PARAMS = {
-    name: 'Mocha',
-    email: 'tests-cart@tests.com',
-    password: 'Juan-123',
+    name: 'Mocha Chai',
+    password: PASSWORD_FOR_TESTS,
+    rol: 'client',
 };
 const MISSING_PARAMS = {};
 const NO_CART_FOUND_PARAMS = {
@@ -18,8 +23,11 @@ const NO_USER_FOUND_PARAMS = {
 
 const createRandomUser = async () => {
     const user = await UsersControllers.createUser({
-        ...USER_PARAMS,
-        email: `tests-cart-${Math.random()}@tests.com`,
+        user: {
+            ...USER_PARAMS,
+            email: generateDummyUserEmail(),
+        },
+        token: TOKEN_FOR_TESTS,
     });
     return user;
 };
