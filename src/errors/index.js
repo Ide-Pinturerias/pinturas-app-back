@@ -108,6 +108,22 @@ const USER_NOT_EDITABLE_ERROR = class extends Error {
     }
 };
 
+const BLOCKED_USER_ERROR = class extends Error {
+    constructor(message, status = 403) {
+        super(message);
+        this.name = 'BLOCKED_USER_ERROR';
+        this.status = status;
+    }
+};
+
+const DELETED_USER_ERROR = class extends Error {
+    constructor(message, status = 403) {
+        super(message);
+        this.name = 'DELETED_USER_ERROR';
+        this.status = status;
+    }
+};
+
 module.exports = {
     CART_NOT_FOUND_ERROR,
     USER_NOT_FOUND_ERROR,
@@ -122,5 +138,7 @@ module.exports = {
     PROVIDER_NOT_FOUND_ERROR,
     PROVIDER_NOT_ACTIVE_ERROR,
     INVALID_PASSWORD_ERROR,
-    USER_NOT_EDITABLE_ERROR
+    USER_NOT_EDITABLE_ERROR,
+    BLOCKED_USER_ERROR,
+    DELETED_USER_ERROR
 };
