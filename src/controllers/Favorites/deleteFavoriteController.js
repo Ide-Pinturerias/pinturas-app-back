@@ -5,7 +5,7 @@ const {
     MISSING_PARAMS_ERROR,
 } = require("#ERRORS");
 
-const deleteFavoriteController = async (idUser, idProduct) => {
+const deleteFavoriteController = async ({ idUser, idProduct }) => {
 
     if (!idUser || !idProduct) throw new MISSING_PARAMS_ERROR("Faltan parametros");
 

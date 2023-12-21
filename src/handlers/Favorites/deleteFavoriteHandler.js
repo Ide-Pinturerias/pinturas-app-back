@@ -1,7 +1,7 @@
 const { FavoritesControllers } = require("#CONTROLLERS");
 const { deleteFavorite } = FavoritesControllers;
 
-const addFavoriteHandler = async (req, res) => {
+const deleteFavoriteHandler = async (req, res) => {
     try {
         const { idUser, idProduct } = req.query;
         const result = await deleteFavorite({ idUser, idProduct });
@@ -14,4 +14,4 @@ const addFavoriteHandler = async (req, res) => {
     }
 };
 
-module.exports = addFavoriteHandler;
+module.exports = deleteFavoriteHandler;
