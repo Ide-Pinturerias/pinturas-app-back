@@ -12,11 +12,14 @@ const sendContactEmailHandler = async (req, res) => {
         return res.status(200).json({ message: messageSent });
 
     } catch (error) {
-        console.log(error);
+
+        console.error(`Error sending contact email: ${error.message}`);
+
         return res.status(error.status || 500).json({
             name: error.name,
             message: error.message,
         });
+
     }
 
 };

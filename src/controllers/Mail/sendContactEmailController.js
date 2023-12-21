@@ -4,7 +4,9 @@ const { MISSING_PARAMS_ERROR } = require('#ERRORS');
 
 const sendContactEmailController = ({ name, message, replyTo }) => {
 
-    if (!name || !message || !replyTo) throw new MISSING_PARAMS_ERROR("Faltan parametros");
+    if (!name || !message || !replyTo) {
+        throw new MISSING_PARAMS_ERROR('Missing params');
+    }
 
     const subject = `Contacto de ${name}`;
 

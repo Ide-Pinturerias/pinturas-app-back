@@ -5,7 +5,7 @@ const { MISSING_PARAMS_ERROR, USER_NOT_FOUND_ERROR } = require('#ERRORS');
 
 const sendRegisterEmailController = async ({ message, id }) => {
 
-    if (!message || !id) throw new MISSING_PARAMS_ERROR("Faltan parametros");
+    if (!message || !id) throw new MISSING_PARAMS_ERROR('Missing params');
 
     const subject = `Bienvenido a la familia de IDE Pinturería`;
     const user = await Users.findOne({ where: { id } });

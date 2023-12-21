@@ -4,7 +4,7 @@ const { MISSING_PARAMS_ERROR } = require('#ERRORS');
 
 const sendOrderEmailController = ({ email, message }) => {
 
-    if (!email || !message) throw new MISSING_PARAMS_ERROR("Faltan parametros");
+    if (!email || !message) throw new MISSING_PARAMS_ERROR("Missing params");
 
     const subject = `Resumen de tu orden`;
 
