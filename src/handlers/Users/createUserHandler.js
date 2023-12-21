@@ -3,17 +3,18 @@ const { createUser } = UsersControllers;
 
 const createUserHandler = async (req, res) => {
 
-    const { email, password } = req.body;
-
     try {
 
-        const newUser = await createUser({ email, password, ...req.body });
+        const token = req.header('Authorization');
+
+        const newUser = await createUser({
+            user: req.body,
+            token
+        });
 
         return res.status(200).json({
-
             status: "success",
             user: newUser,
-
         });
 
     } catch (error) {

@@ -8,8 +8,8 @@ const editUserHandler = async (req, res) => {
         const { id } = req.params;
         const result = await editUser({
             userId: id,
+            userContent: req.body,
             token,
-            userContent: req.body
         });
 
         return res.status(200).json({ usuario: result });

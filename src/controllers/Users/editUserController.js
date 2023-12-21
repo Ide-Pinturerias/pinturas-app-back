@@ -7,10 +7,11 @@ const {
     USER_NOT_FOUND_ERROR,
     USER_NOT_EDITABLE_ERROR
 } = require("#ERRORS");
+const { validateToken } = require("#SERVICES/jwt");
 
-const editUserController = async ({ userId, userContent }) => {
+const editUserController = async ({ userId, userContent, token }) => {
 
-    // TODO: Agregar token de autenticación (?)
+    validateToken(token);
 
     if (!userId || !userContent) throw new MISSING_PARAMS_ERROR("Missing params");
 

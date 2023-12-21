@@ -3,23 +3,11 @@ const { loginUsers } = UsersControllers;
 
 const loginUsersHandler = async (req, res) => {
 
-    const { email, password } = req.body;
-
-    // Buscar en bd si existe y comparar contraseña
-    if (!email || !password) {
-
-        return res.status(400).json({
-
-            status: "error",
-            mensaje: "Faltan datos por enviar"
-
-        });
-
-    }
-
     try {
 
-        const { user, token } = await loginUsers(email, password);
+        const { email, password } = req.body;
+
+        const { user, token } = await loginUsers({ email, password });
 
         if (user && token) {
 
@@ -50,11 +38,12 @@ const loginUsersHandler = async (req, res) => {
 
     } catch (error) {
 
-        return res.status(500).json({
+        console.error('Error en loginUsersHandler: \n', error);
 
-            status: "error",
-            mensaje: "Error del servidor al ejecutar el login del usuario",
-            error: error.message,
+        return res.status(error.status || 500).json({
+
+            name: error.name,
+            message: error.message,
 
         });
 

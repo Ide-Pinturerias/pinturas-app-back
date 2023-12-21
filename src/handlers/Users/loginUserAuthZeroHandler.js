@@ -4,8 +4,8 @@ const { loginAuthZero } = UsersControllers;
 const loginUserAuthZeroHandler = async (req, res) => {
 
     try {
-        //Verificar si el usuario ya esta creado en la bd, sino lo creamos
-        const verifyUserAuthZero = await loginAuthZero(req.body);
+        const user = req.body;
+        const verifyUserAuthZero = await loginAuthZero({ user });
 
         return res.status(200).json({
 
@@ -17,13 +17,12 @@ const loginUserAuthZeroHandler = async (req, res) => {
 
     } catch (error) {
 
-        console.log(error);
+        console.error('Error en loginUserAuthZeroHandler: \n', error);
 
-        return res.status(500).json({
+        return res.status(error.status || 500).json({
 
-            status: "error",
-            mensaje: "Error del servidor al iniciar sesión por medio de auth zero",
-            error: error.message,
+            name: error.name,
+            message: error.message,
 
         });
 

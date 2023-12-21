@@ -1,9 +1,10 @@
 const { Users } = require('#DB_CONNECTION');
 const { MISSING_PARAMS_ERROR, USER_NOT_FOUND_ERROR } = require('#ERRORS');
+const { validateToken } = require('#SERVICES/jwt');
 
-const getUserByIdController = async ({ userId }) => {
+const getUserByIdController = async ({ userId, token }) => {
 
-    // TODO: Agregar token de autenticación (?)
+    validateToken(token);
 
     if (!userId) throw new MISSING_PARAMS_ERROR('Missing params');
 

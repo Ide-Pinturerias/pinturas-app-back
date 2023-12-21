@@ -1,14 +1,14 @@
 const { Users } = require('#DB_CONNECTION');
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
 const { MISSING_PARAMS_ERROR, INVALID_PASSWORD_ERROR } = require('#ERRORS');
 const { PASSWORD_REGEX } = require('#CONSTANTS');
+const { validateToken } = require('#SERVICES/jwt');
 
-const createUserController = async ({
-    email, password, rol = "client", name,
-    lastName, address, locality, province, phone
-}) => {
+const createUserController = async ({ user, token }) => {
 
-    // TODO: Agregar token de autenticación (?)
+    validateToken(token);
+
+    let { email, password, rol, name, lastName, address, locality, province, phone } = user;
 
     if (!email && !password) {
         throw new MISSING_PARAMS_ERROR("Missing params");
