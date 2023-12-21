@@ -7,15 +7,19 @@ const {
 
 const deleteFavoriteController = async ({ idUser, idProduct }) => {
 
-    if (!idUser || !idProduct) throw new MISSING_PARAMS_ERROR("Faltan parametros");
+    if (!idUser || !idProduct){
+        throw new MISSING_PARAMS_ERROR("Missing params");
+    }
 
-    //valido que el usuario exista
     const user = await Users.findByPk(idUser);
-    if (!user) throw new USER_NOT_FOUND_ERROR("Usuario no encontrado");
+    if (!user) {
+        throw new USER_NOT_FOUND_ERROR(`User with id ${idUser} not found`);
+    }
 
-    //valido que el producto exista
     const productFavorite = await Products.findByPk(idProduct);
-    if (!productFavorite) throw new PRODUCT_NOT_FOUND_ERROR("Producto no econtrado");
+    if (!productFavorite) {
+        throw new PRODUCT_NOT_FOUND_ERROR(`Product with id ${idProduct} not found`);
+    }
 
     await user.removeProduct(productFavorite);
 
