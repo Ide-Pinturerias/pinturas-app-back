@@ -5,11 +5,8 @@ const createUserHandler = async (req, res) => {
 
     try {
 
-        const token = req.header('Authorization');
-
         const newUser = await createUser({
-            user: req.body,
-            token
+            user: req.body
         });
 
         return res.status(200).json({
