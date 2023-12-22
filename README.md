@@ -25,6 +25,8 @@ Es una API REST que permite al usuario crear, leer, actualizar y eliminar produc
 ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-333333?style=flat&logo=postgresql)
 ![Render](https://img.shields.io/badge/-Render-333333?style=flat&logo=render)
 ![ESLint](https://img.shields.io/badge/-ESLint-333333?style=flat&logo=eslint)
+![GitHub
+Actions](https://img.shields.io/badge/-GitHub%20Actions-333333?style=flat&logo=github-actions)
 
 ### Now testing with! (Ahora realizando pruebas con!)
 
