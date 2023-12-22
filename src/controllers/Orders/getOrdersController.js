@@ -1,21 +1,14 @@
 const { Orders } = require('#DB_CONNECTION');
 
 const getOrdersController = async ({ idUser, state, idOrder }) => {
+  const searchCondition = {};
+  if (idUser) searchCondition.userId = idUser;
+  if (state) searchCondition.state = state;
+  if (idOrder) searchCondition.id = idOrder;
 
-    // These are optional params
-    // if (!idUser && !state && !idOrder) {
-    //     throw new MISSING_PARAMS_ERROR('Missing params');
-    // }
+  const orders = await Orders.findAll({ where: searchCondition });
 
-    const searchCondition = {};
-    idUser ? searchCondition.userId = idUser : null;
-    state ? searchCondition.state = state : null;
-    idOrder ? searchCondition.id = idOrder : null;
-
-    const orders = await Orders.findAll({ where: searchCondition });
-
-    return orders;
-
+  return orders;
 };
 
 module.exports = getOrdersController;

@@ -1,4 +1,4 @@
-const { DBControllers } = require('../src/controllers');
+const { DBControllers } = require('#CONTROLLERS');
 const { resetProducts } = DBControllers;
 
 resetProducts();

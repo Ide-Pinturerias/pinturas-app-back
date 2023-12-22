@@ -1,23 +1,22 @@
-const { Providers } = require("#DB_CONNECTION");
-const { validateToken } = require("#SERVICES/jwt");
+const { Providers } = require('#DB_CONNECTION');
+const { validateToken } = require('#SERVICES/jwt');
 const {
-    MISSING_PARAMS_ERROR,
-    PROVIDER_NOT_FOUND_ERROR,
-} = require("#ERRORS");
+  MISSING_PARAMS_ERROR,
+  PROVIDER_NOT_FOUND_ERROR
+} = require('#ERRORS');
 
 const destroyProviderController = async ({ providerId, token }) => {
+  validateToken(token);
 
-    validateToken(token);
+  if (!providerId) throw new MISSING_PARAMS_ERROR('Missing params');
 
-    if (!providerId) throw new MISSING_PARAMS_ERROR('Missing params');
+  const provider = await Providers.findByPk(providerId);
 
-    const provider = await Providers.findByPk(providerId);
+  if (!provider) throw new PROVIDER_NOT_FOUND_ERROR(`Provider with id ${providerId} not found`);
 
-    if (!provider) throw new PROVIDER_NOT_FOUND_ERROR(`Provider with id ${providerId} not found`);
+  await provider.destroy();
 
-    await provider.destroy();
-
-    return provider.dataValues;
+  return provider.dataValues;
 };
 
 module.exports = destroyProviderController;

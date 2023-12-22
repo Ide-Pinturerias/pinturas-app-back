@@ -1,69 +1,63 @@
 const { Users } = require('#DB_CONNECTION');
-const { createToken } = require("#SERVICES/jwt");
+const { createToken } = require('#SERVICES/jwt');
 const {
-    MISSING_PARAMS_ERROR,
-    BLOCKED_USER_ERROR,
-    DELETED_USER_ERROR
-} = require("#ERRORS");
+  MISSING_PARAMS_ERROR,
+  BLOCKED_USER_ERROR,
+  DELETED_USER_ERROR
+} = require('#ERRORS');
 
 const loginAuthZeroController = async ({ user }) => {
+  if (!user) throw new MISSING_PARAMS_ERROR('Missing params');
 
-    if (!user) throw new MISSING_PARAMS_ERROR('Missing params');
+  let findUser = await Users.findOne({
 
-    let token;
+    where: {
 
-    let findUser = await Users.findOne({
+      email: user.email
 
-        where: {
+    }
 
-            email: user.email
+  });
 
-        },
+  if (!findUser) {
+    findUser = await Users.create({
+
+      email: user.email,
+      rol: 'client',
+      name: user.given_name,
+      lastName: user.family_name,
+      image: user.picture,
+      authZero: 'true'
 
     });
+  }
 
-    if (!findUser) {
+  const userToValidate = { ...findUser.dataValues };
 
-        findUser = await Users.create({
+  if (userToValidate.isBanned) {
+    throw new BLOCKED_USER_ERROR(`The user ${userToValidate.email} is blocked`);
+  }
 
-            email: user.email,
-            rol: "client",
-            name: user.given_name,
-            lastName: user.family_name,
-            image: user.picture,
-            authZero: "true",
+  if (userToValidate.active === false) {
+    throw new DELETED_USER_ERROR(`The user ${userToValidate.email} is deleted`);
+  }
 
-        });
+  const userToToken = {
 
-    }
+    email: user.email,
+    name: user.given_name,
+    rol: user.rol ? user.rol : 'client'
 
-    let userToValidate = { ...findUser.dataValues };
+  };
 
-    if (userToValidate.isBanned) {
-        throw new BLOCKED_USER_ERROR(`The user ${userToValidate.email} is blocked`);
-    }
+  const token = createToken(userToToken);
 
-    if (userToValidate.active === false) {
-        throw new DELETED_USER_ERROR(`The user ${userToValidate.email} is deleted`);
-    }
+  return {
 
-    let userToToken = {
+    user: findUser,
+    token
 
-        email: user.email,
-        name: user.given_name,
-        rol: user.rol ? user.rol : 'client'
-
-    };
-
-    token = createToken(userToToken);
-
-    return {
-
-        user: findUser,
-        token: token
-
-    };
-
+  };
 };
 
 module.exports = loginAuthZeroController;

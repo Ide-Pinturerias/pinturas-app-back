@@ -7,7 +7,7 @@ const files = fs.readdirSync(__dirname).filter(file => file !== 'index.js');
 // Exportamos todos los archivos encontrados
 const Controllers = {};
 files.forEach(file => {
-    Controllers[file.split('Controller')[0]] =
+  Controllers[file.split('Controller')[0]] =
         require(path.join(__dirname, file));
 });
 

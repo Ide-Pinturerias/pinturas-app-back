@@ -1,56 +1,47 @@
-const jwt = require("jsonwebtoken");
-const moment = require("moment");
+const jwt = require('jsonwebtoken');
+const moment = require('moment');
 const { JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
+  if (!req.headers.authorization) {
+    return res.status(400).json({
 
-    if (!req.headers.authorization) {
+      status: 'error',
+      mensaje: 'La petición no tiene la cabecera de autenticación. Por favor inicia sesión.'
+    });
+  }
 
-        return res.status(400).json({
+  // Limpiar el token por si me vienen comillas
+  const token = req.headers.authorization.replace(/['"]+/g, '');
 
-            status: "error",
-            mensaje: "La petición no tiene la cabecera de autenticación. Por favor inicia sesión."
-        });
+  // Decodificar token
+  try {
+    const payload = jwt.decode(token, JWT_SECRET);
+
+    if (payload.exp <= moment.unix()) {
+      return res.status(401).json({
+
+        status: 'error',
+        mensaje: 'Token expirado'
+
+      });
     }
 
-    // Limpiar el token por si me vienen comillas
-    const token = req.headers.authorization.replace(/['"]+/g, '');
+    // Agregar datos del usuario
 
-    // Decodificar token
-    try {
+    req.user = payload;
+  } catch (error) {
+    return res.status(404).json({
 
-        let payload = jwt.decode(token, JWT_SECRET);
+      status: 'error',
+      mensaje: 'Token inválido',
+      error: error.message
 
-        if (payload.exp <= moment.unix()) {
+    });
+  }
 
-            return res.status(401).json({
-
-                status: "error",
-                mensaje: "Token expirado",
-
-            });
-
-        }
-
-        // Agregar datos del usuario
-
-        req.user = payload;
-
-    } catch (error) {
-
-        return res.status(404).json({
-
-            status: "error",
-            mensaje: "Token inválido",
-            error: error.message
-
-        });
-
-    }
-
-    // Pasar a ejecución de acción
-    next();
-
+  // Pasar a ejecución de acción
+  next();
 };
 
 module.exports = auth;

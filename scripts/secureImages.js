@@ -1,11 +1,10 @@
-const { Products } = require('../src/db');
-const { ProductsControllers } = require('../src/controllers');
+const { Products } = require('#DB_CONNECTION');
+const { ProductsControllers } = require('#CONTROLLERS');
 const { uploadImage } = ProductsControllers;
 
-
 Products.findAll().then(products => {
-    products.forEach(product => {
-        const { idProduct } = product;
-        uploadImage(idProduct);
-    });
+  products.forEach(product => {
+    const { idProduct } = product;
+    uploadImage(idProduct);
+  });
 });

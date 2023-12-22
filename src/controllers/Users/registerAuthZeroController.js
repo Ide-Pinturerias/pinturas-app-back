@@ -1,58 +1,52 @@
 const { Users } = require('#DB_CONNECTION');
-const { createToken } = require("#SERVICES/jwt");
+const { createToken } = require('#SERVICES/jwt');
 
 const registerAuthZeroController = async (user) => {
+  let findUser = await Users.findOne({
 
-    let token;
+    where: {
 
-    let findUser = await Users.findOne({
-
-        where: {
-
-            email: user.email
-
-        },
-
-    });
-
-    if (!findUser) {
-
-        findUser = await Users.create({
-
-            email: user.email,
-            rol: "client",
-            name: user.given_name,
-            lastName: user.family_name,
-            image: user.picture,
-            authZero: "true",
-
-        });
+      email: user.email
 
     }
 
-    let userToValidate = { ...findUser.dataValues };
+  });
 
-    if (userToValidate.isBanned) throw Error("El usuario se encuentra bloqueado");
+  if (!findUser) {
+    findUser = await Users.create({
 
-    if (userToValidate.active === false) throw Error("El usuario ha sido eliminado");
+      email: user.email,
+      rol: 'client',
+      name: user.given_name,
+      lastName: user.family_name,
+      image: user.picture,
+      authZero: 'true'
 
-    let userToToken = {
+    });
+  }
 
-        email: user.email,
-        name: user.given_name,
-        rol: user.rol ? user.rol : "client"
+  const userToValidate = { ...findUser.dataValues };
 
-    };
+  if (userToValidate.isBanned) throw Error('El usuario se encuentra bloqueado');
 
-    token = createToken(userToToken);
+  if (userToValidate.active === false) throw Error('El usuario ha sido eliminado');
 
-    return {
+  const userToToken = {
 
-        user: findUser,
-        token: token
+    email: user.email,
+    name: user.given_name,
+    rol: user.rol ? user.rol : 'client'
 
-    };
+  };
 
+  const token = createToken(userToToken);
+
+  return {
+
+    user: findUser,
+    token
+
+  };
 };
 
 module.exports = registerAuthZeroController;
