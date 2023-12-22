@@ -26,12 +26,12 @@ const decodedToken = (token) => {
 
 };
 
-const validateToken = (token) => {
+const validateToken = (token, checkAdminPrivileges = true) => {
     if (!token) throw new MISSING_AUTHORIZATION_TOKEN_ERROR("Missing authorization token");
 
     const authorization = decodedToken(token);
 
-    if (authorization.rol !== 'admin') {
+    if (checkAdminPrivileges && authorization.rol !== 'admin') {
         throw new INVALID_AUTHORIZATION_TOKEN_ERROR("Invalid authorization token");
     }
 

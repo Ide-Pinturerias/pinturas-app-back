@@ -11,7 +11,7 @@ const { validateToken } = require("#SERVICES/jwt");
 
 const editUserController = async ({ userId, userContent, token }) => {
 
-    validateToken(token);
+    validateToken(token, false);
 
     if (!userId || !userContent) throw new MISSING_PARAMS_ERROR("Missing params");
 

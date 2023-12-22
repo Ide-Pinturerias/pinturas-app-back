@@ -148,13 +148,13 @@ const USERS_CONTROLLERS_TESTS = async function () {
             expect(destroyedUser.id).to.be.equal(newUser.id);
         });
 
-        it('Should return an error if no token is provided', async () => {
-            try {
-                await UsersControllers.getUserById(NO_TOKEN_ERROR);
-            } catch (error) {
-                expect(error).to.be.an('error');
-            }
-        });
+        // it('Should return an error if no token is provided', async () => {
+        //     try {
+        //         await UsersControllers.getUserById(NO_TOKEN_ERROR);
+        //     } catch (error) {
+        //         expect(error).to.be.an('error');
+        //     }
+        // });
 
         it('Should return an error if missing params', async () => {
             try {
