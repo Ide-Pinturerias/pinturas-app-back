@@ -1,4 +1,4 @@
-const { Reviews } = require("../../db.js");
+const { Reviews } = require("#DB_CONNECTION");
 
 
 const getAllReviewsController = async ({ userId, orderId }) => {

@@ -1,8 +1,8 @@
-const { Blogs } = require("../../db");
+const { Blogs } = require("#DB_CONNECTION");
 
 const getAllBlogsController = async () => {
-
-    return await Blogs.findAll();
+    const blogs = await Blogs.findAll();
+    return blogs;
 };
 
 module.exports = getAllBlogsController;

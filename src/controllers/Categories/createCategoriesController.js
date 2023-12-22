@@ -1,4 +1,4 @@
-const { Categories } = require('../../db');
+const { Categories } = require('#DB_CONNECTION');
 
 const createCategoriesController = async ({ name }) => {
 

@@ -1,7 +1,7 @@
 const xlsx = require('xlsx');
-const { Providers } = require('../../db.js');
-const calculatePrice = require("../../utils/calculatePrice.js");
-const IVA = 21;
+const { Providers } = require('#DB_CONNECTION');
+const calculatePrice = require("#UTILS/calculatePrice");
+const { IVA } = require("#CONSTANTS");
 
 const updatePricesController = async (excelFile, { providerName }) => {
 

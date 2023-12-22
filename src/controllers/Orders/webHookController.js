@@ -1,25 +1,36 @@
-const { Orders, Products } = require("../../db");
+const { Orders, Products } = require("#DB_CONNECTION");
+const {
+    MISSING_PARAMS_ERROR,
+    ORDER_NOT_FOUND_ERROR,
+    PRODUCT_NOT_FOUND_ERROR
+} = require("#ERRORS");
 
 const webHookController = async ({ idOrder, action, bodySTR, querySTR }) => {
 
+    if (!idOrder || !action || !bodySTR || !querySTR) {
+        throw new MISSING_PARAMS_ERROR("Missing params");
+    }
+
     const order = await Orders.findByPk(idOrder);
-    if (!order) throw Error("Error: No se encontro la orden");
+    if (!order) {
+        throw new ORDER_NOT_FOUND_ERROR(`Order with id ${idOrder} not found`);
+    }
 
     if (action === 'payment.created') {
 
-        const orderProducts = order.products.map(product =>
-            JSON.parse(product));
+        // update products stock
+        const parsedProducts = JSON.parse(order.products);
 
-        orderProducts.forEach(async product => {
+        const { ids, qus } = parsedProducts;
 
-            const dbProduct = await Products.findByPk(product.id);
-            if (!dbProduct) throw new Error('Error: Producto no encontrado');
-            await dbProduct?.update({
-                stock: Math.max(0, dbProduct.stock - product.quantity)
-            });
-        });
-        // if (bodySTR) order.meliBody = bodySTR;
-        // if (querySTR) order.meliQuery = querySTR;
+        for (let i = 0; i < ids.length; i++) {
+            const product = await Products.findByPk(ids[i]);
+            if (!product) {
+                throw new PRODUCT_NOT_FOUND_ERROR(`Product with id ${ids[i]} not found`);
+            }
+            await product.update({ stock: Math.max(0, product.stock - qus[i]) });
+        }
+
         await order.update({
             meliBody: bodySTR,
             meliQuery: querySTR,

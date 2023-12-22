@@ -1,4 +1,4 @@
-const { OrdersControllers } = require("../../controllers");
+const { OrdersControllers } = require("#CONTROLLERS");
 const { paymentOrder } = OrdersControllers;
 
 
@@ -6,8 +6,11 @@ const paymentOrderHandler = async (req, res) => {
 
     try {
         const { idOrder } = req.body;
-        const result = await paymentOrder({ idOrder });
-        return res.status(200).json(result);
+        const preference = await paymentOrder({ orderId: idOrder });
+        return res.status(200).json({
+            status: "success",
+            preference,
+        });
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

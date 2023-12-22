@@ -8,7 +8,6 @@ const getCartsController = async () => {
 
         return {
 
-            id: cart.id,
             idCart: cart.idCart,
             idUser: cart.userId,
             products: cart.products

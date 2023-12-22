@@ -1,4 +1,4 @@
-const { UsersControllers } = require('../../controllers');
+const { UsersControllers } = require('#CONTROLLERS');
 const { registerAuthZero } = UsersControllers;
 
 const registerUserAuthZeroHandler = async (req, res) => {

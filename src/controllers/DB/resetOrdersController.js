@@ -1,17 +1,15 @@
-const { Orders } = require('../../db');
+const { Orders } = require('#DB_CONNECTION');
 
 
 const resetOrdersController = async () => {
 
     try {
         await Orders.sync({ force: true });
-        console.log("Ordenes actualizadas (:");
+        console.log("Ordenes reseteadas correctamente :D");
     } catch (error) {
+        console.error("Error reseteando las ordenes :(");
         console.error(error);
     }
 };
-
-// const result = resetOrdersController();
-// console.log(result);
 
 module.exports = resetOrdersController;

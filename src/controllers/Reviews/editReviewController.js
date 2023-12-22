@@ -1,13 +1,13 @@
-const { Reviews } = require("../../db.js");
+const { Reviews } = require("#DB_CONNECTION");
 
 const editReviewController = async (id, review) => {
-  // Buscar el review por su ID en la base de datos
-  const reviewToEdit = await Reviews.findByPk(id);
+    // Buscar el review por su ID en la base de datos
+    const reviewToEdit = await Reviews.findByPk(id);
 
-  if (!reviewToEdit) throw Error("REVIEW NO ENCONTRADO");
+    if (!reviewToEdit) throw Error("REVIEW NO ENCONTRADO");
 
-  await reviewToEdit.update(review);
-  return reviewToEdit;
+    await reviewToEdit.update(review);
+    return reviewToEdit;
 };
 
 module.exports = editReviewController;

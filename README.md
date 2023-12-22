@@ -26,6 +26,12 @@ Es una API REST que permite al usuario crear, leer, actualizar y eliminar produc
 ![Render](https://img.shields.io/badge/-Render-333333?style=flat&logo=render)
 ![ESLint](https://img.shields.io/badge/-ESLint-333333?style=flat&logo=eslint)
 
+### Now testing with! (Ahora realizando pruebas con!)
+
+![Mocha](https://img.shields.io/badge/-Mocha-333333?style=flat&logo=mocha)
+![Chai](https://img.shields.io/badge/-Chai-333333?style=flat&logo=chai)
+
+
 ## Deployment (Despliegue)
 
 This project is deployed on Render.com at the following URL:

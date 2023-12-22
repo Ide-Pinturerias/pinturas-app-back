@@ -1,15 +1,22 @@
-const { Users } = require('../../db');
-const getUserByIdController = async (id) => {
+const { Users } = require('#DB_CONNECTION');
+const { MISSING_PARAMS_ERROR, USER_NOT_FOUND_ERROR } = require('#ERRORS');
+const { validateToken } = require('#SERVICES/jwt');
 
-    if (id) {
-        const findUser = await Users.findByPk(id);
-        if (!findUser) throw Error("USUARIO NO ENCONTRADO");
+const getUserByIdController = async ({ userId, token }) => {
 
-        delete findUser.dataValues.password;
+    validateToken(token);
 
-        return findUser.dataValues;
+    if (!userId) throw new MISSING_PARAMS_ERROR('Missing params');
 
-    }
+    const user = await Users.findByPk(userId);
+
+    if (!user) throw new USER_NOT_FOUND_ERROR(`User with id ${userId} not found`);
+
+    return {
+        ...user.dataValues,
+        password: undefined
+    };
+
 };
 
 module.exports = getUserByIdController;

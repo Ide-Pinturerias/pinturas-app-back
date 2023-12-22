@@ -1,7 +1,12 @@
-const transporter = require('../../services/nodemailer');
+const transporter = require('#SERVICES/nodemailer');
 const { SENDER_MAIL: email } = process.env;
+const { MISSING_PARAMS_ERROR } = require('#ERRORS');
 
 const sendContactEmailController = ({ name, message, replyTo }) => {
+
+    if (!name || !message || !replyTo) {
+        throw new MISSING_PARAMS_ERROR('Missing params');
+    }
 
     const subject = `Contacto de ${name}`;
 

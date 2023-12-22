@@ -1,5 +1,5 @@
 {
-    "author": "",
+    "author": "IDE Pinturerías Dev Team",
     "dependencies": {
         "bcrypt": "^5.1.1",
         "body-parser": "^1.20.2",
@@ -9,7 +9,6 @@
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
         "express-rate-limit": "^7.1.5",
-        "https": "^1.0.0",
         "jsonwebtoken": "^9.0.2",
         "mercadopago": "2.0.5",
         "moment": "^2.29.4",
@@ -22,16 +21,14 @@
         "sanitize-filename": "^1.6.3",
         "sequelize": "^6.35.1",
         "uuid": "^9.0.1",
-        "validator": "^13.11.0",
         "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.0/xlsx-0.20.0.tgz"
     },
     "description": "",
     "devDependencies": {
+        "chai": "^4.3.10",
         "eslint": "^8.55.0",
-        "nodemon": "^3.0.2",
-        "postcss": "^8.4.32",
-        "standard": "^17.1.0",
-        "vitest": "^0.34.6"
+        "mocha": "^10.2.0",
+        "nodemon": "^3.0.2"
     },
     "engines": {
         "node": "18.17.1"
@@ -46,9 +43,19 @@
         "#DB_CONNECTION": "./src/db.js",
         "#ERRORS": "./src/errors/index.js",
         "#CONTROLLERS": "./src/controllers/index.js",
-        "#HANDLERS": "./src/handlers/index.js"
+        "#HANDLERS": "./src/handlers/index.js",
+        "#TESTS/*": "./src/tests/*/index.js",
+        "#UTILS/*": "./src/utils/*.js"
     },
-    "keywords": [],
+    "keywords": [
+        "REST API",
+        "BACKEND",
+        "EXPRESS",
+        "NODE",
+        "POSTGRESQL",
+        "SEQUELIZE",
+        "JAVASCRIPT"
+    ],
     "license": "ISC",
     "main": "index.js",
     "name": "api",
@@ -62,8 +69,12 @@
         "resetUsers": "node ./scripts/resetUsers.js",
         "secureImages": "node ./scripts/secureImages.js",
         "setProviderToProducts": "node ./scripts/setProviderToProducts.js",
+        "deps-check": "pnpx npm-check",
         "dev": "nodemon -L --trace-warnings",
-        "start": "node index.js"
+        "start": "node index.js",
+        "test": "mocha src/tests/index.spec.js",
+        "test-env": "mocha src/tests/env.spec.js",
+        "run-actions": "gh act -P ubuntu-20.04=nektos/act-environments-ubuntu:20.04"
     },
     "version": "2.0.0"
 }

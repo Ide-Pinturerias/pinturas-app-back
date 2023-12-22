@@ -1,7 +1,14 @@
-const { Users } = require('../../db');
-const { createToken } = require("../../services/jwt");
+const { Users } = require('#DB_CONNECTION');
+const { createToken } = require("#SERVICES/jwt");
+const {
+    MISSING_PARAMS_ERROR,
+    BLOCKED_USER_ERROR,
+    DELETED_USER_ERROR
+} = require("#ERRORS");
 
-const loginAuthZeroController = async (user) => {
+const loginAuthZeroController = async ({ user }) => {
+
+    if (!user) throw new MISSING_PARAMS_ERROR('Missing params');
 
     let token;
 
@@ -32,15 +39,19 @@ const loginAuthZeroController = async (user) => {
 
     let userToValidate = { ...findUser.dataValues };
 
-    if (userToValidate.isBanned) throw Error("El usuario se encuentra bloqueado");
+    if (userToValidate.isBanned) {
+        throw new BLOCKED_USER_ERROR(`The user ${userToValidate.email} is blocked`);
+    }
 
-    if (userToValidate.active === false) throw Error("El usuario ha sido eliminado");
+    if (userToValidate.active === false) {
+        throw new DELETED_USER_ERROR(`The user ${userToValidate.email} is deleted`);
+    }
 
     let userToToken = {
 
         email: user.email,
         name: user.given_name,
-        rol: user.rol ? user.rol : "client"
+        rol: user.rol ? user.rol : 'client'
 
     };
 

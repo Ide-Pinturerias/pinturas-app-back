@@ -1,29 +1,19 @@
-const { ProvidersControllers } = require('../../controllers');
+const { ProvidersControllers } = require('#CONTROLLERS');
 const { deleteProvider } = ProvidersControllers;
-const decodedToken = require("../../services/decodedJwt");
 
 const deleteProviderHandler = async (req, res) => {
-
-    const token = req.header('Authorization');
-    if (!token) return res.status(401).json({
-        error: "Falta el token de autorización"
-    });
-
     try {
-        const authorization = decodedToken(token);
-        if (authorization.rol !== "admin") {
-
-            return res.status(403).json({
-                error: "No cuentas con los permisos para esta sección"
-            });
-        }
-
+        const token = req.header('Authorization');
         const { id } = req.params;
-        const result = await deleteProvider(id);
-
-        return res.status(200).json({ provider: result });
+        const provider = await deleteProvider({ providerId: id, token });
+        // TODO: Generar una respuesta más amigable
+        // Ejemplo: return res.status(200).json({ message: 'Provider deleted successfully', provider });
+        return res.status(200).json({ provider });
     } catch (error) {
-        return res.status(500).json({ error: error.message });
+        return res.status(error.status || 500).json({
+            name: error.name,
+            message: error.message,
+        });
     }
 };
 
