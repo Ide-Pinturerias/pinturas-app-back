@@ -124,6 +124,12 @@ const DELETED_USER_ERROR = class extends Error {
     }
 };
 
+const ORDER_NOT_FOUND_ERROR = class extends RESOURCE_NOT_FOUND_ERROR {
+    constructor(message, status = 404) {
+        super(message, 'ORDER', status);
+    }
+};
+
 module.exports = {
     CART_NOT_FOUND_ERROR,
     USER_NOT_FOUND_ERROR,
@@ -140,5 +146,6 @@ module.exports = {
     INVALID_PASSWORD_ERROR,
     USER_NOT_EDITABLE_ERROR,
     BLOCKED_USER_ERROR,
-    DELETED_USER_ERROR
+    DELETED_USER_ERROR,
+    ORDER_NOT_FOUND_ERROR
 };

@@ -8,9 +8,9 @@ module.exports = (sequelize) => {
             primaryKey: true
         },
         products: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
+            type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: []
+            defaultValue: "{}"
         },
         meliQuery: {
             type: DataTypes.STRING

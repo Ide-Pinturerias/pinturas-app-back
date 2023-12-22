@@ -1,16 +1,23 @@
 const { Carts } = require('#DB_CONNECTION');
 const createOrder = require('./createOrderController');
+const {
+    MISSING_PARAMS_ERROR,
+    CART_NOT_FOUND_ERROR,
+} = require('#ERRORS');
 
-const creatOrderByCartIdController = async (cartId) => {
+const creatOrderByCartIdController = async ({ idCart }) => {
 
-    const cart = await Carts.findOne({ where: { idCart: cartId } });
+    if (!idCart) throw new MISSING_PARAMS_ERROR('Missing params');
 
-    if (!cart) throw new Error('No se encontró el carrito');
+    const cart = await Carts.findOne({ where: { idCart } });
+
+    if (!cart) {
+        throw new CART_NOT_FOUND_ERROR(`Cart with id ${idCart} not found`);
+    }
 
     const { products, userId } = cart;
 
-    if (!userId) throw new Error('No se encontró el usuario');
-    const order = await createOrder(products, userId);
+    const order = await createOrder({ products, idUser: userId });
 
     return order;
 

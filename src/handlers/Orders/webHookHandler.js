@@ -18,12 +18,17 @@ const webHookHandler = async (req, res) => {
             querySTR
         });
 
-        res.status(200).send(orderResult);
+        res.status(200).send({
+            status: 'success',
+            order: orderResult
+        });
 
     } catch (error) {
+        console.error(`Error handling webhook: ${error.message}`);
         console.error(error);
-        res.status(500).send({
-            error: error.message
+        res.status(error.status || 500).send({
+            name: error.name,
+            message: error.message,
         });
     }
 
