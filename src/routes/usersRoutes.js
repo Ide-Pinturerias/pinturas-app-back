@@ -1,17 +1,21 @@
 const { Router } = require('express');
-const { UsersHandlers } = require('../handlers/');
-const auth = require('../middlewares/auth');
+const { UsersHandlers } = require('#HANDLERS');
+const { auth, createRateLimiter } = require('#MIDDLEWARES');
 
 const router = Router();
 
+// Para limitar el número de peticiones por IP para /login y /register
+const loginRateLimiter = createRateLimiter(0, 1, 5);
+const registerRateLimiter = createRateLimiter(0, 24, 5);
+
 // 1. POST /users/register
-router.post('/register', UsersHandlers.createUser);
+router.post('/register', registerRateLimiter, UsersHandlers.createUser);
 
 // 2. GET /users
 router.get('/', UsersHandlers.getUsers);
 
 // 3. POST /users/login
-router.post('/login', UsersHandlers.loginUsers);
+router.post('/login', loginRateLimiter, UsersHandlers.loginUsers);
 
 // 4. DELETE /users/:id
 router.delete('/:id', UsersHandlers.deleteUser);
