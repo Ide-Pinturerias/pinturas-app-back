@@ -16,7 +16,8 @@ const auth = (req, res, next) => {
 
   // Decodificar token
   try {
-    const payload = jwt.decode(token, JWT_SECRET);
+    // const payload = jwt.decode(token, JWT_SECRET);
+    const payload = jwt.verify(token, JWT_SECRET);
 
     if (payload.exp <= moment.unix()) {
       return res.status(401).json({

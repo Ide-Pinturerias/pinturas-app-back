@@ -23,10 +23,6 @@ const webHookHandler = async (req, res) => {
   } catch (error) {
     console.error(`Error handling webhook: ${error.message}`);
     console.error(error);
-    res.status(error.status || 500).send({
-      name: error.name,
-      message: error.message
-    });
   }
 };
 

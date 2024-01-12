@@ -1,13 +1,15 @@
 const productsUploads = require('./multerStorage');
 const blogsUploads = require('./multerBlogs');
-const rateLimiter = require('./rateLimiter');
+const createRateLimiter = require('./rateLimiter');
 const auth = require('./auth');
 const isAdmin = require('./routesProtection');
+const csrf = require('./csrf');
 
 module.exports = {
   productsUploads,
-  rateLimiter,
+  createRateLimiter,
   blogsUploads,
   auth,
-  isAdmin
+  isAdmin,
+  csrf
 };
