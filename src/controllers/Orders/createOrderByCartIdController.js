@@ -1,49 +1,49 @@
 const { Carts } = require('#DB_CONNECTION');
 const createOrder = require('./createOrderController');
 const {
-    MISSING_PARAMS_ERROR,
-    CART_NOT_FOUND_ERROR
+  MISSING_PARAMS_ERROR,
+  CART_NOT_FOUND_ERROR
 } = require('#ERRORS');
 
 const formatProductsCart = (stringProducts) => {
-    try {
-        const arrayProducts = JSON.parse(stringProducts);
-        const objectProducts = arrayProducts.reduce((acc, product) => {
-            // Extraer valores de las claves "id" y "quantity" del product
-            const { id, quantity } = product;
+  try {
+    const arrayProducts = JSON.parse(stringProducts);
+    const objectProducts = arrayProducts.reduce((acc, product) => {
+      // Extraer valores de las claves "id" y "quantity" del product
+      const { id, quantity } = product;
 
-            // Agregar el valor de "id" al array "ids"
-            acc.ids.push(Number(id));
+      // Agregar el valor de "id" al array "ids"
+      acc.ids.push(Number(id));
 
-            // Agregar el valor de "quantity" al array "qus"
-            acc.qus.push(quantity);
+      // Agregar el valor de "quantity" al array "qus"
+      acc.qus.push(quantity);
 
-            return acc;
-        }, { ids: [], qus: [] });
+      return acc;
+    }, { ids: [], qus: [] });
 
-        return objectProducts;
-    } catch (error) {
-        //to-do manejo de errores con formato jamer
-        console.error(error);
-    }
+    return objectProducts;
+  } catch (error) {
+    //to-do manejo de errores con formato jamer
+    console.error(error);
+  }
 };
 
 const creatOrderByCartIdController = async ({ idCart }) => {
-    if (!idCart) throw new MISSING_PARAMS_ERROR('Missing params');
+  if (!idCart) throw new MISSING_PARAMS_ERROR('Missing params');
 
-    const cart = await Carts.findOne({ where: { idCart } });
+  const cart = await Carts.findOne({ where: { idCart } });
 
-    if (!cart) {
-        throw new CART_NOT_FOUND_ERROR(`Cart with id ${idCart} not found`);
-    }
+  if (!cart) {
+    throw new CART_NOT_FOUND_ERROR(`Cart with id ${idCart} not found`);
+  }
 
-    const { products, userId } = cart;
+  const { products, userId } = cart;
 
-    const productsFormated = formatProductsCart(products);
+  const productsFormated = formatProductsCart(products);
 
-    const order = createOrder({ products: productsFormated, idUser: userId });
+  const order = createOrder({ products: productsFormated, idUser: userId });
 
-    return order;
+  return order;
 };
 
 module.exports = creatOrderByCartIdController;
