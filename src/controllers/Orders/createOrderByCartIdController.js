@@ -23,7 +23,7 @@ const formatProductsCart = (stringProducts) => {
 
     return objectProducts;
   } catch (error) {
-    //to-do manejo de errores con formato jamer
+    console.info('Error formatting products');
     console.error(error);
   }
 };

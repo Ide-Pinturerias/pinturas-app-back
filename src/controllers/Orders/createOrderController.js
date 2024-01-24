@@ -30,14 +30,13 @@ const getTotal = async (products) => {
     });
     return total;
   } catch (error) {
-    console.error(`Error in getTotal: ${error.message}`);
+    console.info('Error al calcular el total de la orden');
     console.error(error);
     throw new BAD_FORMAT_JSON_ERROR('Bad format json');
   }
 };
 
 const createOrderController = async ({ products, idUser }) => {
-  console.log(products, idUser);//to do eliminar antes del merge
   if (!products || !idUser) throw new MISSING_PARAMS_ERROR('Missing params');
 
   const userOrder = await Users.findByPk(idUser);
@@ -47,7 +46,6 @@ const createOrderController = async ({ products, idUser }) => {
   }
 
   const total = await getTotal(products);
-  console.log(total);//to do eliminar antes del merge
   const order = await Orders.create({
     products: JSON.stringify(products),
     total
