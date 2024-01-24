@@ -9,21 +9,21 @@ const webHookHandler = async (req, res) => {
     const bodySTR = JSON.stringify(body);
     const querySTR = JSON.stringify(query);
 
-    const orderResult = webHook({
+    const orderResult = await webHook({
       idOrder,
       action: req.body.action,
       bodySTR,
       querySTR
     });
 
-    res.status(200).send({
+    res.status(200).json({
       status: 'success',
       order: orderResult
     });
   } catch (error) {
-    console.error(`Error handling webhook: ${error.message}`);
+    console.info('Error handling webhook');
     console.error(error);
-    res.status(error.status || 500).send({
+    res.status(error.status || 500).json({
       name: error.name,
       message: error.message
     });
