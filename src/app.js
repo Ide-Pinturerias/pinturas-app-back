@@ -34,7 +34,7 @@ const trustProxyFn = (/* ip */) => {
 server.set('trust proxy', trustProxyFn);
 // Middleware para capturar la dirección
 // IP del encabezado X - Forwarded - For cuando esté presente
-server.use((req, res, next) => {
+server.use((req, _res, next) => {
   const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
   req.clientIp = clientIp;
   next();
