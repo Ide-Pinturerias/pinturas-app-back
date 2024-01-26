@@ -6,7 +6,7 @@ const {
 } = require('#ERRORS');
 
 const webHookController = async ({ idOrder, action, bodySTR, querySTR }) => {
-  if (!idOrder || !action || !bodySTR || !querySTR) {
+  if (!idOrder || !bodySTR || !querySTR) {
     throw new MISSING_PARAMS_ERROR('Missing params');
   }
 
