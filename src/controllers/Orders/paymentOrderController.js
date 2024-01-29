@@ -1,12 +1,17 @@
 const preference = require('#SERVICES/mercadopago');
 const { Orders, Products } = require('#DB_CONNECTION');
-const { FRONT_URL_BASE, DEPLOY_URL_BASE } = require('#CONSTANTS');
+const { FRONT_URL_BASE } = require('#CONSTANTS');
 const {
   MISSING_PARAMS_ERROR,
   ORDER_NOT_FOUND_ERROR,
   PRODUCT_NOT_FOUND_ERROR,
   BAD_FORMAT_JSON_ERROR
 } = require('#ERRORS');
+require('dotenv').config();
+
+const baseURL = process.env.NODE_ENV === 'tunnel'
+  ? process.env.TUNNEL_URL
+  : process.env.DEPLOY_URL;
 
 const createPreferenceBody = async (products, orderId) => {
   try {
@@ -17,7 +22,8 @@ const createPreferenceBody = async (products, orderId) => {
         pending: `${FRONT_URL_BASE}/payment/pending`,
         success: `${FRONT_URL_BASE}/payment/successful`
       },
-      notification_url: `${DEPLOY_URL_BASE}/orders/webhook/${orderId}`
+      notification_url: `${baseURL}/orders/webhook/${orderId}`,
+      auto_return: 'approved'
     };
     // "products": "{\"ids\":[1,2,3],\"qus\":[1,2,3]}"
     const parsedProducts = JSON.parse(products);

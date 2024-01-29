@@ -16,14 +16,14 @@ const webHookHandler = async (req, res) => {
       querySTR
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       order: orderResult
     });
   } catch (error) {
-    console.info('Error handling webhook');
+    console.info('Error while handling webhook notification:');
     console.error(error);
-    res.status(error.status || 500).json({
+    return res.status(error.status || 500).json({
       name: error.name,
       message: error.message
     });

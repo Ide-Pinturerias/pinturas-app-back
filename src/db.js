@@ -13,14 +13,17 @@ if (NODE_ENV === 'test') {
   sequelizeInstance = createDBInstance(DB_TEST_USER, DB_TEST_PASS,
     DB_TEST_HOST, DB_TEST_NAME);
   console.log('[DB] TESTING ENVIRONMENT');
-} else if (NODE_ENV === 'local') {
+} else if (NODE_ENV === 'local' || NODE_ENV === 'tunnel') {
   const {
     DB_LOCAL_USER, DB_LOCAL_PASS,
     DB_LOCAL_HOST, DB_LOCAL_NAME
   } = ENV;
   sequelizeInstance = createDBInstance(DB_LOCAL_USER, DB_LOCAL_PASS,
     DB_LOCAL_HOST, DB_LOCAL_NAME);
-  console.log('[DB] LOCAL ENVIRONMENT');
+  console.log(`[DB] LOCAL ${NODE_ENV === 'tunnel' && '(TUNNEL)'} ENVIRONMENT`);
+  if (NODE_ENV === 'tunnel') {
+    console.log(`[DB] TUNNEL URL: ${ENV.TUNNEL_URL}`);
+  }
 } else {
   sequelizeInstance = createDBInstance();
   console.log('[DB] MAIN ENVIRONMENT');
@@ -63,8 +66,8 @@ function injectModels (sequelizeInstance) {
   fs.readdirSync(path.join(__dirname, '/models'))
     .filter((file) =>
       (file.indexOf('.') !== 0) &&
-            (file !== basename) &&
-            (file.slice(-3) === '.js')
+      (file !== basename) &&
+      (file.slice(-3) === '.js')
     ).forEach((file) => {
       modelDefiners.push(require(path.join(__dirname, '/models', file)));
     });
@@ -74,7 +77,7 @@ function injectModels (sequelizeInstance) {
   // Capitalizamos los nombres de los modelos ie: product => Product
   const entries = Object.entries(sequelizeInstance.models);
   const capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() +
-        entry[0].slice(1), entry[1]]);
+    entry[0].slice(1), entry[1]]);
   sequelizeInstance.models = Object.fromEntries(capsEntries);
 }
 

@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const { OrdersHandlers } = require('#HANDLERS');
+const { mercadoPago } = require('#MIDDLEWARES');
 
 const router = Router();
 
@@ -22,7 +23,7 @@ router.get('/', OrdersHandlers.getOrders);
 router.post('/cart', OrdersHandlers.createOrderByCartId);
 
 // 7. WEBHOOK /orders/webhook (webhook)
-router.post('/webhook/:idOrder', OrdersHandlers.webHook);
+router.post('/webhook/:idOrder', [mercadoPago], OrdersHandlers.webHook);
 
 // 8. GET /orders/user (get orders by user id)
 router.get('/user/:userId', OrdersHandlers.getOrdersByUserId);

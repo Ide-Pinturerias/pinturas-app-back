@@ -50,7 +50,8 @@
     "#CONTROLLERS": "./src/controllers/index.js",
     "#HANDLERS": "./src/handlers/index.js",
     "#TESTS/*": "./src/tests/*/index.js",
-    "#UTILS/*": "./src/utils/*.js"
+    "#UTILS/*": "./src/utils/*.js",
+    "#MIDDLEWARES": "./src/middlewares/index.js"
   },
   "keywords": [
     "REST API",

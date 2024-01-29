@@ -1,16 +1,13 @@
 const { Orders, Products } = require('#DB_CONNECTION');
+
 const {
-  MISSING_PARAMS_ERROR,
   ORDER_NOT_FOUND_ERROR,
   PRODUCT_NOT_FOUND_ERROR
 } = require('#ERRORS');
 
 const webHookController = async ({ idOrder, action, bodySTR, querySTR }) => {
-  if (!idOrder || !action || !bodySTR || !querySTR) {
-    throw new MISSING_PARAMS_ERROR('Missing params');
-  }
-
   const order = await Orders.findByPk(idOrder);
+  // const { meliBody: prevBody, meliQuery: prevQuery } = order;
   if (!order) {
     throw new ORDER_NOT_FOUND_ERROR(`Order with id ${idOrder} not found`);
   }
@@ -31,7 +28,12 @@ const webHookController = async ({ idOrder, action, bodySTR, querySTR }) => {
 
     await order.update({
       meliBody: bodySTR,
-      meliQuery: querySTR,
+      meliQuery: querySTR
+    });
+    // console.info(`Fields created for order ${idOrder}`);
+
+    // Actualizamos el estado de la orden a pagada
+    await order.update({
       state: 'paid'
     });
   }

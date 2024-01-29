@@ -10,7 +10,7 @@ const successOrderHandler = async (req, res) => {
       order: succededOrder
     });
   } catch (error) {
-    console.error(`Error succeding order: ${error.message}`);
+    console.info('Error while succeding order:');
     console.error(error);
     return res.status(error.status || 500).json({
       name: error.name,
