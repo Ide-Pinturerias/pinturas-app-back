@@ -21,7 +21,7 @@ const formatProductsCart = (stringProducts) => {
       return acc;
     }, { ids: [], qus: [] });
 
-    return objectProducts;
+    return JSON.stringify(objectProducts);
   } catch (error) {
     console.info('Error formatting products');
     console.error(error);
