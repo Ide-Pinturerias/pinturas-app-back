@@ -12,7 +12,7 @@ if (NODE_ENV === 'test') {
   } = process.env;
   sequelizeInstance = createDBInstance(DB_TEST_USER, DB_TEST_PASS,
     DB_TEST_HOST, DB_TEST_NAME);
-  console.log('[DB] TESTING ENVIRONMENT');
+  console.info('[DB] TESTING ENVIRONMENT');
 } else if (NODE_ENV === 'local' || NODE_ENV === 'tunnel') {
   const {
     DB_LOCAL_USER, DB_LOCAL_PASS,
@@ -20,13 +20,13 @@ if (NODE_ENV === 'test') {
   } = ENV;
   sequelizeInstance = createDBInstance(DB_LOCAL_USER, DB_LOCAL_PASS,
     DB_LOCAL_HOST, DB_LOCAL_NAME);
-  console.log(`[DB] LOCAL ${NODE_ENV === 'tunnel' && '(TUNNEL)'} ENVIRONMENT`);
+  console.info(`[DB] LOCAL ${NODE_ENV === 'tunnel' ? '(TUNNEL)' : ''} ENVIRONMENT`);
   if (NODE_ENV === 'tunnel') {
-    console.log(`[DB] TUNNEL URL: ${ENV.TUNNEL_URL}`);
+    console.info(`[DB] TUNNEL URL: ${ENV.TUNNEL_URL}`);
   }
 } else {
   sequelizeInstance = createDBInstance();
-  console.log('[DB] MAIN ENVIRONMENT');
+  console.info('[DB] MAIN ENVIRONMENT');
 }
 
 function createDBInstance (user = DB_USER, pass = DB_PASS,
