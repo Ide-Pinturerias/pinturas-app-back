@@ -9,7 +9,7 @@ const {
 const getTotal = async (products) => {
   // "products": "{\"ids\":[1,2,3],\"qus\":[1,2,3]}"
   try {
-    const { ids, qus } = products;
+    const { ids, qus } = JSON.parse(products);
     if (ids.length !== qus.length) {
       throw new BAD_FORMAT_JSON_ERROR('Bad format json');
     }
@@ -46,8 +46,9 @@ const createOrderController = async ({ products, idUser }) => {
   }
 
   const total = await getTotal(products);
+
   const order = await Orders.create({
-    products: JSON.stringify(products),
+    products,
     total
   });
 

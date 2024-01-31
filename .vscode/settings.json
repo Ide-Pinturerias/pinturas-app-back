@@ -8,7 +8,6 @@
       "strings": true
     },
     "editor.suggest.insertMode": "replace",
-    "editor.tabSize": 2,
     "editor.detectIndentation": false,
     "editor.formatOnSave": true
   },

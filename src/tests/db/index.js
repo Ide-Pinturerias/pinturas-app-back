@@ -4,7 +4,7 @@ const should = CHAI.should();
 const expect = CHAI.expect;
 
 let dbInstance = null;
-if (process.env.NODE_ENV === 'local') {
+if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'tunnel') {
   const {
     DB_LOCAL_USER, DB_LOCAL_PASS,
     DB_LOCAL_HOST, DB_LOCAL_NAME
