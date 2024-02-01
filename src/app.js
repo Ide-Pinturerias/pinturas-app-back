@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const routes = require('#ROUTES');
 const path = require('path');
 require('dotenv').config();
-const { ALLOWED_ORIGINS, SESSION_SECRET } = process.env;
+const { ALLOWED_ORIGINS, SESSION_SECRET, DEPLOY_URL } = process.env;
 const { csrf } = require('#MIDDLEWARES');
 
 // Init Express Server
@@ -14,24 +14,36 @@ const server = express();
 
 // Session (cookies) configuration
 const session = require('express-session');
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 server.use(session({
+  name: 'session',
+  keys: [],
   secret: SESSION_SECRET,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    secure: true,
+    httpOnly: true,
+    domain: DEPLOY_URL,
+    path: '/',
+    expires: expiryDate
+  }
 }));
 
 // CSRF protection
 server.use(cookieParser());
 server.use(csrf);
 
-// Helmet
+// Helmet (https://helmetjs.github.io/)
 server.use(helmet());
+
 // Proxy configuration
-const trustProxyFn = (/* ip */) => {
+const trustProxyFn = (_ip) => {
   // Por ahora, confiamos en todas las conexiones
   return true;
 };
 server.set('trust proxy', trustProxyFn);
+
 // Middleware para capturar la dirección
 // IP del encabezado X - Forwarded - For cuando esté presente
 server.use((req, _res, next) => {
@@ -40,7 +52,7 @@ server.use((req, _res, next) => {
   next();
 });
 
-server.name = 'API';
+server.name = 'IDE Pinturerías REST API';
 // MIDDLEWARES
 server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
@@ -63,10 +75,7 @@ server.use(express.static(path.join(__dirname, 'public')));
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 server.use('/', routes);
 
-// Disable some properties
-server.disable('x-powered-by');
-
-// Error catching endware.
+// Error catching endware
 server.use((err, _req, res, next) => {
   const status = err.status || 500;
   if (err) {

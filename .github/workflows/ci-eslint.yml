@@ -1,4 +1,4 @@
-name: Node CI - Eslint - Tests
+name: Node CI - Eslint - Tests - Snyk
 
 on:
   push:
@@ -60,8 +60,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run Eslint
+      - name: Lint with Eslint
         run: pnpm lint
 
-      - name: Run Env Tests
+      - name: Env Tests
         run: pnpm test-env

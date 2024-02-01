@@ -4,7 +4,7 @@ const { auth, createRateLimiter } = require('#MIDDLEWARES');
 
 const router = Router();
 
-// Para limitar el número de peticiones por IP para /login y /register
+// Limit the number of requests per IP for /users/login and /users/register
 const loginRateLimiter = createRateLimiter(0, 1, 5);
 const registerRateLimiter = createRateLimiter(0, 24, 5);
 

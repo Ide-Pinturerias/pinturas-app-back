@@ -84,7 +84,9 @@
     "start": "node index.js",
     "test": "mocha src/tests/index.spec.js",
     "test-env": "mocha src/tests/env.spec.js",
-    "run-actions": "gh act -P ubuntu-20.04=nektos/act-environments-ubuntu:20.04"
+    "run-actions": "gh act -P ubuntu-20.04=nektos/act-environments-ubuntu:20.04",
+    "install-snyk": "pnpm add -g snyk",
+    "snyk-test": "snyk test"
   },
   "version": "2.0.0"
 }
