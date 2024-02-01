@@ -68,7 +68,7 @@
   ],
   "license": "ISC",
   "main": "index.js",
-  "name": "api",
+  "name": "ide-pinturerias-rest-api",
   "scripts": {
     "lint": "eslint --fix . --max-warnings 0",
     "resetCarts": "node ./scripts/resetCarts.js",
