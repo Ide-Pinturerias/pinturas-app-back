@@ -5,6 +5,7 @@ const auth = require('./auth');
 const isAdmin = require('./routesProtection');
 const csrf = require('./csrf');
 const mercadoPago = require('./mercadopagoMiddleware');
+const uploadXlsx = require('./multerXlsx');
 
 module.exports = {
   productsUploads,
@@ -13,5 +14,6 @@ module.exports = {
   auth,
   isAdmin,
   csrf,
-  mercadoPago
+  mercadoPago,
+  uploadXlsx
 };

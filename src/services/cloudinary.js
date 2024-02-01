@@ -9,7 +9,7 @@ cloudinary.config({
 });
 
 const DEFAULT_IMAGE = 'http://www.pinturasfadepa.com.ar' +
-    '/latex/imgnotas/prof_interior_opt.jpg';
+  '/latex/imgnotas/prof_interior_opt.jpg';
 
 const uploadImage = async (file) => {
   const imgProduct = file.originalname;
@@ -32,7 +32,7 @@ const uploadImage = async (file) => {
   }
 
   // Subir la imagen a cloudinary
-  const { secureUrl } = await cloudinary.uploader.upload(
+  const { secure_url: secureUrl } = await cloudinary.uploader.upload(
     file.path,
     { public_id: `${file.filename}` },
     function (error) {
