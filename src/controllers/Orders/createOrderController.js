@@ -9,8 +9,7 @@ const {
 const getTotal = async (products) => {
   // "products": "{\"ids\":[1,2,3],\"qus\":[1,2,3]}"
   try {
-    const parsedProducts = JSON.parse(products);
-    const { ids, qus } = parsedProducts;
+    const { ids, qus } = JSON.parse(products);
     if (ids.length !== qus.length) {
       throw new BAD_FORMAT_JSON_ERROR('Bad format json');
     }
@@ -31,7 +30,7 @@ const getTotal = async (products) => {
     });
     return total;
   } catch (error) {
-    console.error(`Error in getTotal: ${error.message}`)
+    console.info('Error al calcular el total de la orden');
     console.error(error);
     throw new BAD_FORMAT_JSON_ERROR('Bad format json');
   }
@@ -54,6 +53,8 @@ const createOrderController = async ({ products, idUser }) => {
   });
 
   await userOrder.addOrder(order);
+
+  await order.reload();
 
   return order;
 };

@@ -4,6 +4,7 @@ const createRateLimiter = require('./rateLimiter');
 const auth = require('./auth');
 const isAdmin = require('./routesProtection');
 const csrf = require('./csrf');
+const mercadoPago = require('./mercadopagoMiddleware');
 
 module.exports = {
   productsUploads,
@@ -11,5 +12,6 @@ module.exports = {
   blogsUploads,
   auth,
   isAdmin,
-  csrf
+  csrf,
+  mercadoPago
 };

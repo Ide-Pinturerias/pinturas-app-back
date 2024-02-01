@@ -97,7 +97,6 @@ const filterAndOrderProductsController = async ({
               : {})))
 
   };
-
   const products = await Products.findAndCountAll({
     where: searchCondition,
     limit: limit || PRODUCTS_PER_PAGE,
@@ -114,7 +113,7 @@ const filterAndOrderProductsController = async ({
       // En caso de no especificar un orden, ordenar por id
       ...((!sortBy || sortBy === 'idProduct')
         ? [['idProduct', orderBy || 'ASC']]
-        : [['id', 'ASC']])
+        : [['idProduct', 'ASC']])
     ]
   });
 
