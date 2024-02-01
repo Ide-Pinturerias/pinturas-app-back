@@ -20,10 +20,15 @@ const updatePricesHandler = async (req, res) => {
     }
     const uploadedFile = req.file;
     // Verificar si se cargó un archivo
-    if (!uploadedFile) return res.status(401).json({ error: 'No se cargó ningún archivo.' });
+    if (!uploadedFile) {
+      return res.status(401).json({
+        error: 'No se cargó ningún archivo.'
+      });
+    }
 
     const result = await updatePrices(uploadedFile, req.body);
-    return res.status(200).send(result);
+    // return res.status(200).send(result);
+    return res.status(200).type('text').send(result);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

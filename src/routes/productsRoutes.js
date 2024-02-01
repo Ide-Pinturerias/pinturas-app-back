@@ -1,7 +1,6 @@
 const { Router } = require('express');
-const { ProductsHandlers } = require('../handlers/');
-const { productsUploads } = require('../middlewares/');
-const uploadXlsx = require('../middlewares/multerXlsx');
+const { ProductsHandlers } = require('#HANDLERS');
+const { productsUploads, uploadXlsx } = require('#MIDDLEWARES');
 
 const router = Router();
 
