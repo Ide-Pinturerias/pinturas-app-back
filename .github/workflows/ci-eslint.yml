@@ -65,3 +65,6 @@ jobs:
 
       - name: Env Tests
         run: pnpm test-env
+
+      - name: Server Tests
+        run: pnpm test-server

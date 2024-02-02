@@ -8,16 +8,18 @@ const path = require('path');
 require('dotenv').config();
 const { ALLOWED_ORIGINS, SESSION_SECRET, DEPLOY_URL } = process.env;
 const { csrf } = require('#MIDDLEWARES');
+const session = require('express-session');
 
 // Init Express Server
 const server = express();
 
 // Session (cookies) configuration
-const session = require('express-session');
+server.set('trust proxy', 1); // trust first proxy
 const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 server.use(session({
-  name: 'session',
-  keys: [],
+  store: new (require('connect-pg-simple')(session))({
+    // Insert connect-pg-simple options here
+  }),
   secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
@@ -26,7 +28,8 @@ server.use(session({
     httpOnly: true,
     domain: DEPLOY_URL,
     path: '/',
-    expires: expiryDate
+    expires: expiryDate,
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   }
 }));
 
