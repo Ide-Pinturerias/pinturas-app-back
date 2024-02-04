@@ -1,5 +1,6 @@
 // Init router
 const { Router } = require('express');
+const path = require('path');
 
 // Bring Routers
 const productsRoutes = require('./productsRoutes');
@@ -17,9 +18,8 @@ const router = Router();
 
 // 1. GET /
 // Here we will render the home page, which will be a description of the API
-const description = require('./description.json');
-router.get('/', (req, res) => {
-  return res.json(description);
+router.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, '../../public', 'index.html'));
 });
 
 // Categories routes

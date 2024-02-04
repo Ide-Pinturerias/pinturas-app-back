@@ -27,6 +27,9 @@ env:
   ISSUER_BASE_URL: ${{ secrets.ISSUER_BASE_URL }}
   BASE_URL_LOCAL_AUTH_ZERO: ${{ secrets.BASE_URL_LOCAL_AUTH_ZERO }}
   NODE_ENV: "main"
+  CSRF_SECRET: ${{ secrets.CSRF_SECRET }}
+  SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+  ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
 
 jobs:
   cache-install-lint-and-test:
@@ -65,3 +68,6 @@ jobs:
 
       - name: Env Tests
         run: pnpm test-env
+
+      - name: Server Tests
+        run: pnpm test-server
