@@ -7,7 +7,7 @@ const {
 const createProviderController = async ({ name, discount, markup, token }) => {
   validateToken(token);
 
-  if (!name || !discount || !markup) throw new MISSING_PARAMS_ERROR('Faltan parametros');
+  if (!name || !discount || !markup) throw new MISSING_PARAMS_ERROR('Missing params');
 
   const provider = new Providers({
     name: name.toUpperCase(),

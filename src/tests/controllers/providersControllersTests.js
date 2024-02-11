@@ -29,6 +29,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.getProviders(NO_TOKEN_ERROR);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing authorization token');
       }
     });
   });
@@ -55,6 +56,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.getProviderById(NO_TOKEN_ERROR);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing authorization token');
       }
     });
   });
@@ -81,6 +83,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.createProvider(NO_TOKEN_ERROR);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing authorization token');
       }
     });
 
@@ -89,6 +92,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.createProvider(MISSING_PARAMS);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing params');
       }
     });
   });
@@ -127,6 +131,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.editProvider(NO_TOKEN_ERROR);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing authorization token');
       }
     });
 
@@ -135,6 +140,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.editProvider(MISSING_PARAMS);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing params');
       }
     });
   });
@@ -167,6 +173,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.deleteProvider(NO_TOKEN_ERROR);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing authorization token');
       }
     });
 
@@ -175,6 +182,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.deleteProvider(MISSING_PARAMS);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing params');
       }
     });
   });
@@ -199,6 +207,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.destroyProvider(NO_TOKEN_ERROR);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing authorization token');
       }
     });
 
@@ -207,6 +216,7 @@ const PROVIDERS_CONTROLLERS_TESTS = async function () {
         await ProvidersControllers.destroyProvider(MISSING_PARAMS);
       } catch (error) {
         expect(error).to.be.an('error');
+        expect(error.message).to.be.equal('Missing params');
       }
     });
   });

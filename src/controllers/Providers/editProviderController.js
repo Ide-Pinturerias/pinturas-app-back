@@ -8,7 +8,7 @@ const {
 const editProvider = async ({ providerId, providerData, token }) => {
   validateToken(token);
 
-  if (!providerId || !providerData) throw new MISSING_PARAMS_ERROR('Faltan parametros');
+  if (!providerId || !providerData) throw new MISSING_PARAMS_ERROR('Missing params');
 
   const provider = await Providers.findOne({ where: { id: providerId } });
   if (!provider) throw new PROVIDER_NOT_FOUND_ERROR(`Proveedor con id ${providerId} no encontrado`);
