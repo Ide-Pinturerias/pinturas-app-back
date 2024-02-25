@@ -1,37 +1,22 @@
 const { Sequelize } = require('sequelize');
 const { parsed: ENV } = require('dotenv').config();
-const { DB_USER, DB_PASS, DB_HOST, DB_NAME, NODE_ENV } = process.env;
+const { DATABASE_URL, DATABASE_URL_TEST, DATABASE_URL_LOCAL, NODE_ENV } = process.env;
 const fs = require('fs');
 const path = require('path');
 
 let sequelizeInstance = null;
-if (NODE_ENV === 'test') {
-  const {
-    DB_TEST_USER, DB_TEST_PASS,
-    DB_TEST_HOST, DB_TEST_NAME
-  } = process.env;
-  sequelizeInstance = createDBInstance(DB_TEST_USER, DB_TEST_PASS,
-    DB_TEST_HOST, DB_TEST_NAME);
-  console.info('[DB] TESTING ENVIRONMENT');
-} else if (NODE_ENV === 'local' || NODE_ENV === 'tunnel') {
-  const {
-    DB_LOCAL_USER, DB_LOCAL_PASS,
-    DB_LOCAL_HOST, DB_LOCAL_NAME
-  } = ENV;
-  sequelizeInstance = createDBInstance(DB_LOCAL_USER, DB_LOCAL_PASS,
-    DB_LOCAL_HOST, DB_LOCAL_NAME);
-  console.info(`[DB] LOCAL ${NODE_ENV === 'tunnel' ? '(TUNNEL)' : ''} ENVIRONMENT`);
-  if (NODE_ENV === 'tunnel') {
-    console.info(`[DB] TUNNEL URL: ${ENV.TUNNEL_URL}`);
-  }
-} else {
-  sequelizeInstance = createDBInstance();
+if (NODE_ENV === 'main') {
+  sequelizeInstance = createDBInstance(DATABASE_URL);
   console.info('[DB] MAIN ENVIRONMENT');
+} else if (NODE_ENV === 'test') {
+  sequelizeInstance = createDBInstance(DATABASE_URL_TEST);
+  console.info('[DB] TESTING ENVIRONMENT');
+} else {
+  sequelizeInstance = createDBInstance(DATABASE_URL_LOCAL);
+  console.info('[DB] LOCAL ENVIRONMENT');
 }
 
-function createDBInstance (user = DB_USER, pass = DB_PASS,
-  host = DB_HOST, name = DB_NAME) {
-  const dataBaseUrl = `postgres://${user}:${pass}@${host}/${name}`;
+function createDBInstance(dataBaseUrl) {
   try {
     // Creamos la instancia de Sequelize
     const sequelizeInstance = new Sequelize(dataBaseUrl, {
@@ -58,7 +43,7 @@ function createDBInstance (user = DB_USER, pass = DB_PASS,
   }
 }
 
-function injectModels (sequelizeInstance) {
+function injectModels(sequelizeInstance) {
   const basename = path.basename(__filename);
   const modelDefiners = [];
   // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al
