@@ -27,8 +27,6 @@ const registerAuthZeroController = async (user) => {
 
   const userToValidate = { ...findUser.dataValues };
 
-  if (userToValidate.isBanned) throw Error('El usuario se encuentra bloqueado');
-
   if (userToValidate.active === false) throw Error('El usuario ha sido eliminado');
 
   const userToToken = {

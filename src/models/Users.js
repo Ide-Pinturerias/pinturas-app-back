@@ -68,15 +68,6 @@ module.exports = (sequelize) => {
     authZero: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
-    },
-    isBanned: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    idUser: {
-      type: DataTypes.UUID,
-      allowNull: true,
-      defaultValue: DataTypes.UUIDV4
     }
   }, { timestamps: true }
   );

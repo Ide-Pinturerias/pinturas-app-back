@@ -34,10 +34,6 @@ const loginAuthZeroController = async ({ user }) => {
 
   const userToValidate = { ...findUser.dataValues };
 
-  if (userToValidate.isBanned) {
-    throw new BLOCKED_USER_ERROR(`The user ${userToValidate.email} is blocked`);
-  }
-
   if (userToValidate.active === false) {
     throw new DELETED_USER_ERROR(`The user ${userToValidate.email} is deleted`);
   }

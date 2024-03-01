@@ -3,7 +3,6 @@ const { Users } = require('#DB_CONNECTION');
 const { createToken } = require('#SERVICES/jwt');
 const {
   MISSING_PARAMS_ERROR,
-  BLOCKED_USER_ERROR,
   DELETED_USER_ERROR,
   USER_NOT_FOUND_ERROR
 } = require('#ERRORS');
@@ -15,10 +14,6 @@ const loginUsersController = async ({ email, password }) => {
 
   if (!findUser) {
     throw new USER_NOT_FOUND_ERROR(`User with email ${email} not found`);
-  }
-
-  if (findUser.dataValues.isBanned === true) {
-    throw new BLOCKED_USER_ERROR(`The user ${email} is blocked`);
   }
 
   if (findUser.dataValues.active === false) {
