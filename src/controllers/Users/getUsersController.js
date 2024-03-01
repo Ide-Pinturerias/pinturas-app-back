@@ -27,7 +27,6 @@ const getUsersController = async ({ token }) => {
       image: user.image,
       idCart: idCart || null,
       active: user.active,
-      isBanned: user.isBanned,
       authZero: user.authZero
     };
   });
