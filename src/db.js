@@ -1,6 +1,11 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
-const { DATABASE_URL, DATABASE_URL_TEST, DATABASE_URL_LOCAL, NODE_ENV } = process.env;
+const {
+  DATABASE_URL,
+  DATABASE_URL_TEST,
+  DATABASE_URL_LOCAL,
+  NODE_ENV
+} = process.env;
 const fs = require('fs');
 const path = require('path');
 
@@ -16,7 +21,7 @@ if (NODE_ENV === 'main') {
   console.info('[DB] LOCAL ENVIRONMENT');
 }
 
-function createDBInstance(dataBaseUrl) {
+function createDBInstance (dataBaseUrl) {
   try {
     // Creamos la instancia de Sequelize
     const sequelizeInstance = new Sequelize(dataBaseUrl, {
@@ -43,7 +48,7 @@ function createDBInstance(dataBaseUrl) {
   }
 }
 
-function injectModels(sequelizeInstance) {
+function injectModels (sequelizeInstance) {
   const basename = path.basename(__filename);
   const modelDefiners = [];
   // Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al

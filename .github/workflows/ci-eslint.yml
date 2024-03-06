@@ -30,6 +30,8 @@ env:
   CSRF_SECRET: ${{ secrets.CSRF_SECRET }}
   SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
   ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL}}
+  DATABASE_URL_TEST: ${{ secrets.DATABASE_URL_TEST}}
 
 jobs:
   cache-install-lint-and-test:
