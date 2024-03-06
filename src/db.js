@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const { parsed: ENV } = require('dotenv').config();
+require('dotenv').config();
 const { DATABASE_URL, DATABASE_URL_TEST, DATABASE_URL_LOCAL, NODE_ENV } = process.env;
 const fs = require('fs');
 const path = require('path');

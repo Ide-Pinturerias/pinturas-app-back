@@ -1,4 +1,4 @@
-function createRelations(sequelizeInstance) {
+function createRelations (sequelizeInstance) {
   // En sequelize.models están todos los modelos importados como propiedades
   // Para relacionarlos hacemos un destructuring
   const {

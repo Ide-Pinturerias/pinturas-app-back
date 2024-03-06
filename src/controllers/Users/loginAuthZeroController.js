@@ -2,7 +2,6 @@ const { Users } = require('#DB_CONNECTION');
 const { createToken } = require('#SERVICES/jwt');
 const {
   MISSING_PARAMS_ERROR,
-  BLOCKED_USER_ERROR,
   DELETED_USER_ERROR
 } = require('#ERRORS');
 
