@@ -6,12 +6,19 @@ const morgan = require('morgan');
 const routes = require('#ROUTES');
 const path = require('path');
 require('dotenv').config();
-const { ALLOWED_ORIGINS, SESSION_SECRET, DEPLOY_URL } = process.env;
+const { SESSION_SECRET, DEPLOY_URL, CORS_ORIGIN } = process.env;
 const { csrf } = require('#MIDDLEWARES');
 const session = require('express-session');
+const cors = require('cors');
 
 // Init Express Server
 const server = express();
+
+// CORS configuration
+server.use(cors({
+  origin: CORS_ORIGIN,
+  credentials: true
+}));
 
 // Session (cookies) configuration
 server.set('trust proxy', 1); // trust first proxy
@@ -41,11 +48,7 @@ server.use(csrf);
 server.use(helmet());
 
 // Proxy configuration
-const trustProxyFn = (_ip) => {
-  // Por ahora, confiamos en todas las conexiones
-  return true;
-};
-server.set('trust proxy', trustProxyFn);
+server.set('trust proxy', 'loopback');
 
 // Middleware para capturar la dirección
 // IP del encabezado X - Forwarded - For cuando esté presente
@@ -61,13 +64,9 @@ server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 server.use(bodyParser.json({ limit: '50mb' }));
 server.use(morgan('dev'));
 server.use((_req, res, next) => {
-  // update to match the domain you will make the request from
-  res.header('Access-Control-Allow-Origin', ALLOWED_ORIGINS);
   res.header('Access-Control-Allow-Credentials', 'true');
   res.header('Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods',
-    'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
 

@@ -20,7 +20,7 @@ const uploadImage = async (file) => {
   // Comprobar extension;
   if (!['png', 'jpg', 'jpeg', 'gif', 'webp']
     .includes(extension.toLowerCase())) {
-    throw new Error('Por favor sube extensión de imagen permitida');
+    throw new Error('The file extension is not valid, please upload a valid image.');
   }
 
   const fileName = file.filename || DEFAULT_IMAGE;
@@ -28,7 +28,7 @@ const uploadImage = async (file) => {
   // Validar si el path es seguro;
   const safePath = sanitize(fileName, { replacement: '_' });
   if (safePath !== fileName) {
-    throw new Error('Por favor sube un formato válido de imagen');
+    throw new Error('The file name is not safe, please rename it and upload it again.');
   }
 
   // Subir la imagen a cloudinary

@@ -2,7 +2,6 @@ const { Users } = require('#DB_CONNECTION');
 const { createToken } = require('#SERVICES/jwt');
 const {
   MISSING_PARAMS_ERROR,
-  BLOCKED_USER_ERROR,
   DELETED_USER_ERROR
 } = require('#ERRORS');
 
@@ -33,10 +32,6 @@ const loginAuthZeroController = async ({ user }) => {
   }
 
   const userToValidate = { ...findUser.dataValues };
-
-  if (userToValidate.isBanned) {
-    throw new BLOCKED_USER_ERROR(`The user ${userToValidate.email} is blocked`);
-  }
 
   if (userToValidate.active === false) {
     throw new DELETED_USER_ERROR(`The user ${userToValidate.email} is deleted`);

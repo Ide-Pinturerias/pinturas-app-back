@@ -5,20 +5,18 @@ function createRelations (sequelizeInstance) {
     Blogs, Products, Reviews, Users, Orders, Carts, Providers
   } = sequelizeInstance.models;
 
-  // Aca vendrian las relaciones:
-
   // FAVORITOS
   // un usuario puede tener muchos productos favoritos y un producto puede ser favorito para muchos usuarios.
   Users.belongsToMany(Products, { through: 'favorite_products', foreignKey: 'userId' });
   Products.belongsToMany(Users, { through: 'favorite_products', foreignKey: 'productId' });
-  // BLOGS
-  // un usuario puede tener varios blogs, pero cada blog pertenece a un único usuario
+
   // USERS <-> BLOGS
+  // un usuario puede tener varios blogs,
+  // pero cada blog pertenece a un único usuario
   Users.hasMany(Blogs);
   Blogs.belongsTo(Users);
 
   // USERS <-> ORDERS
-
   Users.hasMany(Orders);
   Orders.belongsTo(Users);
 
@@ -27,12 +25,6 @@ function createRelations (sequelizeInstance) {
   // Una review pertenece a una orden
   Orders.hasOne(Reviews);
   Reviews.belongsTo(Orders);
-
-  // PRODUCTS <-> CATEGORIES
-  // Un producto puede pertenecer a una categorías
-  // y una categoría puede tener muchos productos.
-  // Products.belongsTo(Categories, { as: "productCategory" });
-  // Categories.hasMany(Products);
 
   // USERS <-> CARTS
   // Un usuario puede tener un carrito
@@ -45,6 +37,13 @@ function createRelations (sequelizeInstance) {
   // pero un proveedor puede tener muchos productos
   Products.belongsTo(Providers);
   Providers.hasMany(Products);
+
+  // PRODUCTS <-> CATEGORIES
+  // to-do relacionar categorias con productos
+  // Un producto puede pertenecer a una categorías
+  // y una categoría puede tener muchos productos.
+  // Products.belongsTo(Categories, { as: "productCategory" });
+  // Categories.hasMany(Products);
 
   return sequelizeInstance;
 }
