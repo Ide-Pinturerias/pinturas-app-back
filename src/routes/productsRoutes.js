@@ -28,4 +28,7 @@ router.post('/destroy', ProductsHandlers.destroyProduct);
 // 8. PUT /products/updatePrices
 router.put('/update/prices', uploadXlsx.single('excelFile'), ProductsHandlers.updatePrices);
 
+// 9. GET /products/specific
+router.put('/specific/array', ProductsHandlers.getSpecificProducts);
+
 module.exports = router;
