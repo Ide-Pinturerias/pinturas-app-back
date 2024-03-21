@@ -6,5 +6,4 @@ const router = Router();
 // 1. GET /categories
 router.get('/', CategoriesHandlers.getCategories);
 
-
 module.exports = router;

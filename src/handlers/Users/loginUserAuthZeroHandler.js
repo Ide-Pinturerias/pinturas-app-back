@@ -1,34 +1,28 @@
-const { UsersControllers } = require('../../controllers');
+const { UsersControllers } = require('#CONTROLLERS');
 const { loginAuthZero } = UsersControllers;
 
 const loginUserAuthZeroHandler = async (req, res) => {
+  try {
+    const user = req.body;
+    const verifyUserAuthZero = await loginAuthZero({ user });
 
-    try {
-        //Verificar si el usuario ya esta creado en la bd, sino lo creamos
-        const verifyUserAuthZero = await loginAuthZero(req.body);
+    return res.status(200).json({
 
-        return res.status(200).json({
+      status: 'success',
+      mensaje: 'Te has identificado exitosamente',
+      acceso: verifyUserAuthZero
 
-            status: "success",
-            mensaje: "Te has identificado exitosamente",
-            acceso: verifyUserAuthZero
+    });
+  } catch (error) {
+    console.error('Error en loginUserAuthZeroHandler: \n', error);
 
-        });
+    return res.status(error.status || 500).json({
 
-    } catch (error) {
+      name: error.name,
+      message: error.message
 
-        console.log(error);
-
-        return res.status(500).json({
-
-            status: "error",
-            mensaje: "Error del servidor al iniciar sesión por medio de auth zero",
-            error: error.message,
-
-        });
-
-    }
-
+    });
+  }
 };
 
 module.exports = loginUserAuthZeroHandler;

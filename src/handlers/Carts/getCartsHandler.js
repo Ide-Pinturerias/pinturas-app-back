@@ -1,43 +1,21 @@
-const { CartsControllers } = require('../../controllers');
-const { getCarts, findCartById } = CartsControllers;
+const { CartsControllers } = require('#CONTROLLERS');
+const { getCarts } = CartsControllers;
 
-const getCartsHandler = async (req, res) => {
+const getCartsHandler = async (_req, res) => {
+  try {
+    const carts = await getCarts();
 
-    try {
-
-        const { idCart, idUser } = req.query;
-
-        if (idCart || idUser) {
-
-            const cart = await findCartById({ idCart, idUser });
-
-            return res.status(200).json({
-                status: 'success',
-                cart,
-            });
-        }
-
-        const carts = await getCarts();
-
-        return res.status(200).json({
-            status: 'success',
-            carts,
-        });
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        return res.status(500).json({
-            name: error.name,
-            routine: error.routine,
-            detail: error.detail,
-        });
-
-    }
-
+    return res.status(200).json({
+      status: 'success',
+      carts
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(error.status || 500).json({
+      name: error.name,
+      message: error.message
+    });
+  }
 };
 
 module.exports = getCartsHandler;

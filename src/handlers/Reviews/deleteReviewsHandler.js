@@ -1,4 +1,4 @@
-const { ReviewsControllers } = require("../../controllers");
+const { ReviewsControllers } = require('#CONTROLLERS');
 const { deleteReviews } = ReviewsControllers;
 
 const deleteReviewsHandler = async (req, res) => {
@@ -7,9 +7,9 @@ const deleteReviewsHandler = async (req, res) => {
     const deletedReviews = await deleteReviews(id);
 
     return res.status(200).json({
-      status: "success",
-      message: "Review borrado correctamente",
-      reviewDELETED: deletedReviews,
+      status: 'success',
+      message: 'Review borrado correctamente',
+      reviewDELETED: deletedReviews
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });

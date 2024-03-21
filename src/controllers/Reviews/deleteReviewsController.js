@@ -1,10 +1,10 @@
-const { Reviews } = require("../../db.js");
+const { Reviews } = require('#DB_CONNECTION');
 
 const deleteReviewsController = async (id) => {
   // Buscar la review por su ID en la base de datos
   const review = await Reviews.findByPk(id);
 
-  if (!review) throw Error("REVIEW NO ENCONTRADO");
+  if (!review) throw Error('REVIEW NO ENCONTRADO');
 
   await review
     .update({ active: false })

@@ -1,48 +1,42 @@
-const { Carts, Users } = require('../../db');
+const { Carts } = require('#DB_CONNECTION');
+const {
+  BAD_FORMAT_JSON_ERROR,
+  CART_NOT_FOUND_ERROR,
+  MISSING_PARAMS_ERROR
+} = require('#ERRORS');
 
-const editCartController = async ({ idUser, idCart, products }) => {
+const editCartController = async ({ idUser, idCart, products = '{}' }) => {
+  if (!idUser && !idCart) {
+    throw new MISSING_PARAMS_ERROR('Missing params', 400);
+  }
 
-    const user = await Users.findOne({
-        where: {
-            id: idUser
-        }
+  const cart = idCart
+    ? await Carts.findOne({
+      where: {
+        idCart
+      }
+    })
+    : await Carts.findOne({
+      where: {
+        userId: idUser
+      }
     });
 
-    const cart = idCart ? await Carts.findOne({
-        where: {
-            idCart
-        }
-    }) : await Carts.findOne({
-        where: {
-            idUser
-        }
-    });
+  if (!cart) {
+    throw new CART_NOT_FOUND_ERROR(`Cart with id ${idCart} not found`, 404);
+  }
 
-    if (!cart && !user) {
-        throw new Error('No user or cart found');
-    }
+  try {
+    JSON.parse(products);
+  } catch (error) {
+    throw new BAD_FORMAT_JSON_ERROR('Bad format JSON', 400);
+  }
 
-    const jsonProducts = products ? products.map((product) => {
-        return JSON.stringify(product);
-    }) : [];
+  const newCart = await cart.update({
+    products
+  });
 
-    await cart.update({
-
-        products: jsonProducts,
-
-    });
-
-    if (idUser) {
-        await user.update({
-            idCart: cart.idCart
-        });
-        await cart.update({
-            idUser: user.id
-        });
-    }
-
-    return cart;
-
+  return newCart;
 };
 
 module.exports = editCartController;

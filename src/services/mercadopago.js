@@ -1,8 +1,7 @@
-const mercadopago = require("mercadopago");
+const { MercadoPagoConfig, Preference } = require('mercadopago');
 const { MELI_ACCESS_TOKEN } = process.env;
 
-mercadopago && MELI_ACCESS_TOKEN ? mercadopago.configure({
-    access_token: MELI_ACCESS_TOKEN,
-}) : null;
+const client = new MercadoPagoConfig({ accessToken: MELI_ACCESS_TOKEN });
+const preference = new Preference(client);
 
-module.exports = mercadopago;
+module.exports = preference;

@@ -1,0 +1,75 @@
+name: Node CI - Eslint - Tests - Snyk
+
+on:
+  push:
+    branches: [ "develop", "main" ]
+  pull_request:
+    branches: [ "develop" ]
+
+env:
+  DB_NAME: ${{ secrets.DB_NAME }}
+  DB_HOST: ${{ secrets.DB_HOST }}
+  DB_USER: ${{ secrets.DB_USER }}
+  DB_PASS: ${{ secrets.DB_PASS }}
+  CLOUD_NAME: ${{ secrets.CLOUD_NAME }}
+  CLOUD_KEY: ${{ secrets.CLOUD_KEY }}
+  CLOUD_SECRET: ${{ secrets.CLOUD_SECRET }}
+  SENDER_MAIL: ${{ secrets.SENDER_MAIL }}
+  SENDER_PASS : ${{ secrets.SENDER_PASS }}
+  MELI_ACCESS_TOKEN : ${{ secrets.MELI_ACCESS_TOKEN }}
+  DB_TEST_NAME: ${{ secrets.DB_TEST_NAME }}
+  DB_TEST_HOST: ${{ secrets.DB_TEST_HOST }}
+  DB_TEST_USER: ${{ secrets.DB_TEST_USER }}
+  DB_TEST_PASS: ${{ secrets.DB_TEST_PASS }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  SECRET_AUTH_ZERO: ${{ secrets.SECRET_AUTH_ZERO }}
+  CLIENT_ID_AUTH_ZERO: ${{ secrets.CLIENT_ID_AUTH_ZERO }}
+  ISSUER_BASE_URL: ${{ secrets.ISSUER_BASE_URL }}
+  BASE_URL_LOCAL_AUTH_ZERO: ${{ secrets.BASE_URL_LOCAL_AUTH_ZERO }}
+  NODE_ENV: "main"
+  CSRF_SECRET: ${{ secrets.CSRF_SECRET }}
+  SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+  ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL}}
+  DATABASE_URL_TEST: ${{ secrets.DATABASE_URL_TEST}}
+
+jobs:
+  cache-install-lint-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.17.1
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint with Eslint
+        run: pnpm lint
+
+      - name: Env Tests
+        run: pnpm test-env
+
+      - name: Server Tests
+        run: pnpm test-server

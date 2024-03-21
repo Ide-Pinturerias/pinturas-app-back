@@ -1,24 +1,15 @@
 {
-    "[javascript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features",
-        "editor.tabSize": 4,
-        "editor.detectIndentation": false,
-        "editor.formatOnSave": true
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+  },
+  "[json]": {
+    "editor.quickSuggestions": {
+      "strings": true
     },
-    "[json]": {
-        "editor.quickSuggestions": {
-            "strings": true
-        },
-        "editor.suggest.insertMode": "replace",
-        "editor.tabSize": 4,
-        "editor.detectIndentation": false,
-        "editor.formatOnSave": true
-    },
-    "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features",
-        "editor.tabSize": 4,
-        "editor.detectIndentation": false,
-        "editor.formatOnSave": true
-    },
-    "javascript.format.semicolons": "insert"
+    "editor.suggest.insertMode": "replace",
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true
+  },
+  "javascript.format.semicolons": "insert"
 }

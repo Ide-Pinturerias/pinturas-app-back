@@ -1,32 +1,28 @@
-const { ProductsControllers } = require('../../controllers');
+const { ProductsControllers } = require('#CONTROLLERS');
 const { createProduct } = ProductsControllers;
-const { uploadImage } = require('../../services/cloudinary');
 
 const createProductHandler = async (req, res) => {
+  try {
+    const token = req.header('Authorization');
 
-    try {
+    const createdProduct = await createProduct({
+      product: req.body,
+      token,
+      file: req.file
+    });
 
-        if (req.file) {
-
-            const secure_url = await uploadImage(req.file);
-
-            req.body.image = secure_url;
-
-        }
-
-        const postProduct = await createProduct(req.body);
-
-        return res.status(201).json({
-            status: "success",
-            message: "Producto creado exitosamente",
-            product: postProduct
-        });
-
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ error: error.message });
-    }
-
+    return res.status(201).json({
+      status: 'success',
+      message: 'Producto creado exitosamente',
+      product: createdProduct
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(error.status || 500).json({
+      name: error.name,
+      message: error.message
+    });
+  }
 };
 
 module.exports = createProductHandler;

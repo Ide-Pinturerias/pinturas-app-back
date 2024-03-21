@@ -1,58 +1,58 @@
-const { Users } = require('../../db');
-const { createToken } = require("../../services/jwt");
+const { Users } = require('#DB_CONNECTION');
+const { createToken } = require('#SERVICES/jwt');
+const {
+  MISSING_PARAMS_ERROR,
+  DELETED_USER_ERROR
+} = require('#ERRORS');
 
-const loginAuthZeroController = async (user) => {
+const loginAuthZeroController = async ({ user }) => {
+  if (!user) throw new MISSING_PARAMS_ERROR('Missing params');
 
-    let token;
+  let findUser = await Users.findOne({
 
-    let findUser = await Users.findOne({
+    where: {
 
-        where: {
-
-            email: user.email
-
-        },
-
-    });
-
-    if (!findUser) {
-
-        findUser = await Users.create({
-
-            email: user.email,
-            rol: "client",
-            name: user.given_name,
-            lastName: user.family_name,
-            image: user.picture,
-            authZero: "true",
-
-        });
+      email: user.email
 
     }
 
-    let userToValidate = { ...findUser.dataValues };
+  });
 
-    if (userToValidate.isBanned) throw Error("El usuario se encuentra bloqueado");
+  if (!findUser) {
+    findUser = await Users.create({
 
-    if (userToValidate.active === false) throw Error("El usuario ha sido eliminado");
+      email: user.email,
+      rol: 'client',
+      name: user.given_name,
+      lastName: user.family_name,
+      image: user.picture,
+      authZero: 'true'
 
-    let userToToken = {
+    });
+  }
 
-        email: user.email,
-        name: user.given_name,
-        rol: user.rol ? user.rol : "client"
+  const userToValidate = { ...findUser.dataValues };
 
-    };
+  if (userToValidate.active === false) {
+    throw new DELETED_USER_ERROR(`The user ${userToValidate.email} is deleted`);
+  }
 
-    token = createToken(userToToken);
+  const userToToken = {
 
-    return {
+    email: user.email,
+    name: user.given_name,
+    rol: user.rol ? user.rol : 'client'
 
-        user: findUser,
-        token: token
+  };
 
-    };
+  const token = createToken(userToToken);
 
+  return {
+
+    user: findUser,
+    token
+
+  };
 };
 
 module.exports = loginAuthZeroController;

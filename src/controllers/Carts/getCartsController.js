@@ -1,22 +1,17 @@
-const { Carts } = require('../../db');
+const { Carts } = require('#DB_CONNECTION');
 
 const getCartsController = async () => {
+  const carts = await Carts.findAll();
 
-    const carts = await Carts.findAll();
+  return carts.map((cart) => {
+    return {
 
-    return carts.map((cart) => {
+      idCart: cart.idCart,
+      idUser: cart.userId,
+      products: cart.products
 
-        return {
-
-            id: cart.id,
-            idCart: cart.idCart,
-            idUser: cart.userId,
-            products: cart.products
-
-        };
-
-    });
-
+    };
+  });
 };
 
 module.exports = getCartsController;

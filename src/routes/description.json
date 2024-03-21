@@ -1,10 +1,10 @@
 {
-    "name": "FADEPA Pinturas App Products Backend API",
-    "version": "1.0.0",
-    "description": "This is the backend API for the FADEPA Pinturas App Products",
+    "name": "IDE Pinturas App Backend API",
+    "version": "2.1.0",
+    "description": "This is the backend API for the IDE Pinturas App",
     "repository": {
         "type": "git",
-        "url": "https://github.com/PF-Ide-Pintureria/pinturas-app-back"
+        "url": "https://github.com/Ide-Pinturerias/pinturas-app-back"
     },
     "routes": {
         "products": {
@@ -83,6 +83,13 @@
                 "method": "POST",
                 "url": "/reviews",
                 "description": "Create reviews"
+            }
+        },
+        "carts": {
+            "getCart": {
+                "method": "GET",
+                "url": "/carts",
+                "description": "Get cart"
             }
         }
     }

@@ -1,26 +1,20 @@
-const { MailControllers } = require('../../controllers');
+const { MailControllers } = require('#CONTROLLERS');
 const { sendOrderEmail } = MailControllers;
 
 const sendOrderEmailHandler = async (req, res) => {
-
+  try {
     const { email, message } = req.body;
+    const { message: messageSent } = await
+    sendOrderEmail({ email, message });
+    return res.status(200).json({ message: messageSent });
+  } catch (error) {
+    console.error(`Error sending order email: ${error.message}`);
 
-    if (!email || !message) return res.status(400).json({
-        message: "Missing required fields"
+    return res.status(error.status || 500).json({
+      name: error.name,
+      message: error.message
     });
-
-    try {
-
-        const { message: messageSent } = await
-            sendOrderEmail({ email, message });
-        return res.status(200).json({ message: messageSent });
-
-    }
-    catch (error) {
-        console.log(error);
-        return res.status(500).json({ message: error.message });
-    }
-
+  }
 };
 
 module.exports = sendOrderEmailHandler;
