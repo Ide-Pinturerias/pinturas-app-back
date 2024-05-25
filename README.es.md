@@ -39,13 +39,6 @@ Este proyecto no hubiera sido posible sin la ayuda de las siguientes personas in
   <img src="https://contrib.rocks/image?repo=Ide-Pinturerias/pinturas-app-back"
 /> </a>
 
-## Despliegue
-
-Actualmente, en fase de desarrollo, este proyecto se encuentra desplegado en
-Render.com en la siguiente URL ↓
-
-[![servidor](https://img.shields.io/badge/servidor-333333?style=flat&logo=render)](https://pinturas-app-back.onrender.com/)
-
 ## CI/CD
 
 [![Node.js CI &&
