@@ -39,13 +39,6 @@ This project could not have been possible without the help of the following amaz
   <img src="https://contrib.rocks/image?repo=Ide-Pinturerias/pinturas-app-back"
 /> </a>
 
-## Deployment
-
-Currently, in development phase, this project is deployed in Render.com at the
-following URL ↓
-
-[![server](https://img.shields.io/badge/server-333333?style=flat&logo=render)](https://pinturas-app-back.onrender.com/)
-
 ## CI/CD
 
 [![Node.js CI &&
