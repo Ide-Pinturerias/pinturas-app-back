@@ -18,7 +18,6 @@ const uploadFromJSONController = async (
       name: category
     });
   });
-  // console.log('Products and Categories created!');
   createProducts && console.log('Products created!');
   createCategoriesParam && console.log('Categories created!');
 };

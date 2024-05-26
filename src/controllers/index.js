@@ -10,10 +10,9 @@ folders.forEach(folder => {
   // agregando la palabra Controller al final
   if (folder.isDirectory()) {
     Controllers[
-            `${folder.name}Controllers`
+      `${folder.name}Controllers`
     ] = require(path.join(__dirname, folder.name));
   }
 });
 
 module.exports = Controllers;
-// console.log(Controllers);

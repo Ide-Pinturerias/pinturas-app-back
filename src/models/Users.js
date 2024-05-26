@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: false
     },
     rol: {
       type: DataTypes.STRING,
@@ -31,7 +31,7 @@ module.exports = (sequelize) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: false
     },
     lastName: {
       type: DataTypes.STRING,

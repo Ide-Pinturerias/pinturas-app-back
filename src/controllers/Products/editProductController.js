@@ -11,8 +11,6 @@ const editProductController = async ({ productId, newProductData, token, file })
   // Validar token
   validateToken(token);
 
-  // console.log(newProductData);
-
   if (!productId || !newProductData || !newProductData.patent) throw new MISSING_PARAMS_ERROR('Faltan parametros');
   // Buscar el producto a editar
   const productToEdit = await Products.findByPk(productId);

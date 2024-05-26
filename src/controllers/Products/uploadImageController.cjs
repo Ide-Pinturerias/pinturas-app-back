@@ -10,7 +10,7 @@ const uploadImageController = async (id) => {
       return;
     }
   }
-  // const products = await Products.findAll();
+
   const callback = async (error, result) => {
     if (error) {
       console.error(error);

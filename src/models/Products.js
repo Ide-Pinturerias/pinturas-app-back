@@ -10,48 +10,48 @@ module.exports = (sequelize) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: false
     },
     price: {
       type: DataTypes.INTEGER,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: false
     },
     code: {
       type: DataTypes.STRING,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: false
     },
     category: {
       type: DataTypes.STRING,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: false
     },
     patent: {
       type: DataTypes.STRING,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: true
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: true
     },
     featured: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: true
     },
     package: {
       type: DataTypes.STRING,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: false
     },
     stock: {
       type: DataTypes.INTEGER,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: false
     },
     promotion: {
       type: DataTypes.INTEGER, // podria ser un valor como descuento
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: true
     },
     color: {
       type: DataTypes.STRING,
-      allowNull: true // de momento para facilitar pruebas
+      allowNull: false
     },
     rating: {
       type: DataTypes.INTEGER,
@@ -72,6 +72,5 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       defaultValue: 0
     }
-  },
-  { timestamps: false });
+  }, { timestamps: false });
 };
