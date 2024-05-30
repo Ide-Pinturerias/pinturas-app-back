@@ -3,13 +3,20 @@ const { Products } = require('#DB_CONNECTION');
 const PRODUCTS_PER_PAGE = 12;
 
 const filterAndOrderProductsController = async ({
-  name, category,
-  lowPrice, highPrice,
-  minRating, maxRating,
-  minStock, maxStock,
-  page, color,
-  active, limit,
-  sortBy, orderBy
+  name,
+  category,
+  lowPrice,
+  highPrice,
+  minRating,
+  maxRating,
+  minStock,
+  maxStock,
+  page,
+  color,
+  active,
+  limit,
+  sortBy,
+  orderBy
 }) => {
   const pageSet = page || 1; // Página actual, por defecto 1
   const offset = (pageSet - 1) * PRODUCTS_PER_PAGE;
@@ -34,68 +41,67 @@ const filterAndOrderProductsController = async ({
     ...(active && { active }),
 
     // Búsqueda por rango de precios
-    ...((lowPrice && highPrice)
+    ...(lowPrice && highPrice
       ? {
           price: {
             [Op.between]: [lowPrice, highPrice]
           }
         }
-      : (lowPrice
+      : lowPrice
+        ? {
+            price: {
+              [Op.gte]: lowPrice
+            }
+          }
+        : highPrice
           ? {
               price: {
-                [Op.gte]: lowPrice
+                [Op.lte]: highPrice
               }
             }
-          : (highPrice
-              ? {
-                  price: {
-                    [Op.lte]: highPrice
-                  }
-                }
-              : {}))),
+          : {}),
 
     // Búsqueda por rating
-    ...((minRating && maxRating)
+    ...(minRating && maxRating
       ? {
           rating: {
             [Op.between]: [minRating, maxRating]
           }
         }
-      : (minRating
+      : minRating
+        ? {
+            rating: {
+              [Op.gte]: minRating
+            }
+          }
+        : maxRating
           ? {
               rating: {
-                [Op.gte]: minRating
+                [Op.lte]: maxRating
               }
             }
-          : (maxRating
-              ? {
-                  rating: {
-                    [Op.lte]: maxRating
-                  }
-                }
-              : {}))),
+          : {}),
 
     // Búsqueda por stock
-    ...((minStock && maxStock)
+    ...(minStock && maxStock
       ? {
           stock: {
             [Op.between]: [minStock, maxStock]
           }
         }
-      : (minStock
+      : minStock
+        ? {
+            stock: {
+              [Op.gte]: minStock
+            }
+          }
+        : maxStock
           ? {
               stock: {
-                [Op.gte]: minStock
+                [Op.lte]: maxStock
               }
             }
-          : (maxStock
-              ? {
-                  stock: {
-                    [Op.lte]: maxStock
-                  }
-                }
-              : {})))
-
+          : {})
   };
   const products = await Products.findAndCountAll({
     where: searchCondition,
@@ -111,7 +117,7 @@ const filterAndOrderProductsController = async ({
       // Ordenar por nombre
       ...(sortBy === 'name' ? [['name', orderBy || 'ASC']] : []),
       // En caso de no especificar un orden, ordenar por id
-      ...((!sortBy || sortBy === 'idProduct')
+      ...(!sortBy || sortBy === 'idProduct'
         ? [['idProduct', orderBy || 'ASC']]
         : [['idProduct', 'ASC']])
     ]
@@ -122,10 +128,6 @@ const filterAndOrderProductsController = async ({
 
   // Calcular la cantidad total de páginas
   const totalPages = Math.ceil(totalResults / PRODUCTS_PER_PAGE);
-
-  if (!products.rows?.length) {
-    throw new Error('No se encontraron resultados. Prueba de otra manera.');
-  }
 
   return {
     results: products,
