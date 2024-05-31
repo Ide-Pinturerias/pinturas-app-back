@@ -4,7 +4,7 @@ const { MISSING_PARAMS_ERROR, INVALID_PASSWORD_ERROR } = require('#ERRORS');
 const { PASSWORD_REGEX } = require('#CONSTANTS');
 
 const createUserController = async ({ user }) => {
-  let { email, password, rol = 'client', name, lastName, address, locality, province, phone } = user;
+  let { email, password, name, lastName, address, locality, province, phone } = user;
 
   if (!email && !password) {
     throw new MISSING_PARAMS_ERROR('Missing params');
@@ -20,7 +20,7 @@ const createUserController = async ({ user }) => {
   const newUser = await Users.create({
     email,
     password,
-    rol,
+    rol: 'client',
     name,
     lastName,
     address,
@@ -32,8 +32,7 @@ const createUserController = async ({ user }) => {
   return {
     id: newUser.id,
     email: newUser.email,
-    rol: newUser.rol,
-    idUser: newUser.idUser
+    rol: newUser.rol
   };
 };
 

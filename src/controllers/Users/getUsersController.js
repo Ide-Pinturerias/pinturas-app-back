@@ -15,7 +15,6 @@ const getUsersController = async ({ token }) => {
 
     return {
       id: user.id,
-      idUser: user.idUser,
       email: user.email,
       rol: user.rol,
       name: user.name,
