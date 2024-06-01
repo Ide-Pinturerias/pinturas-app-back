@@ -21,8 +21,9 @@ server.set('trust proxy', 'loopback');
 
 // CORS configuration
 server.use(cors({
-  origin: CORS_ORIGIN,
-  credentials: true
+  origin: [CORS_ORIGIN, 'https://idepinturerias.com', 'https://www.idepinturerias.com'],
+  credentials: true,
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
 }));
 
 // Session (cookies) configuration
@@ -67,13 +68,6 @@ server.use(morgan('dev'));
 
 // Static files middleware
 server.use(express.static(path.join(__dirname, 'public')));
-
-// Custom CORS headers
-server.use((_req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-});
 
 // Main routes
 server.use('/', routes);
