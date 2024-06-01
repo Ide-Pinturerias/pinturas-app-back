@@ -22,6 +22,7 @@ const editUserController = async ({ userId, userContent, token }) => {
 
   if (decodedToken(token).rol === 'client') {
     delete userContent.rol;
+    delete userContent.active;
   }
   const userPassword = userContent.password;
 
