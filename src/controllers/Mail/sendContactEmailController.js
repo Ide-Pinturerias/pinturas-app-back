@@ -1,5 +1,5 @@
 const transporter = require('#SERVICES/nodemailer');
-const { SENDER_MAIL: email } = process.env;
+const { SENDER_MAIL: senderMail, DESTINATION_EMAIL: destinationEmail } = process.env;
 const { MISSING_PARAMS_ERROR } = require('#ERRORS');
 
 const sendContactEmailController = ({ name, message, replyTo }) => {
@@ -11,8 +11,8 @@ const sendContactEmailController = ({ name, message, replyTo }) => {
 
   return new Promise((resolve, reject) => {
     const mailConfig = {
-      from: email,
-      to: email,
+      from: senderMail,
+      to: destinationEmail,
       subject,
       html: message,
       replyTo
