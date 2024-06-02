@@ -1,18 +1,17 @@
-
-const { FavoritesControllers } = require("../../controllers");
+const { FavoritesControllers } = require('#CONTROLLERS');
 const { getFavorites } = FavoritesControllers;
 
 const getFavoritesHandler = async (req, res) => {
-    try {
-        console.log('req.body', req.body);
-        const { idUser } = req.body;
-        if (!idUser) return res.status(400).json({ error: "faltan datos" });
-
-        const favoritesUser = await getFavorites(idUser);
-        return res.status(200).json(favoritesUser);
-    } catch (error) {
-        return res.status(500).json({ error: error.message });
-    }
+  try {
+    const { idUser } = req.body;
+    const favoritesUser = await getFavorites({ idUser });
+    return res.status(200).json(favoritesUser);
+  } catch (error) {
+    return res.status(error.status || 500).json({
+      name: error.name,
+      message: error.message
+    });
+  }
 };
 
 module.exports = getFavoritesHandler;

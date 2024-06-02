@@ -1,4 +1,4 @@
-const { ReviewsControllers } = require("../../controllers");
+const { ReviewsControllers } = require('#CONTROLLERS');
 const { editReview } = ReviewsControllers;
 
 const editReviewHandler = async (req, res) => {
@@ -8,9 +8,9 @@ const editReviewHandler = async (req, res) => {
     const review = await editReview(id, req.body);
 
     return res.status(201).json({
-      status: "success",
-      message: "Review editado exitosamente",
-      product: review,
+      status: 'success',
+      message: 'Review editado exitosamente',
+      product: review
     });
   } catch (error) {
     console.error(error);

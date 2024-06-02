@@ -1,4 +1,4 @@
-const { ReviewsControllers } = require("../../controllers");
+const { ReviewsControllers } = require('#CONTROLLERS');
 const { getReviewById } = ReviewsControllers;
 
 const getReviewByIdHandler = async (req, res) => {
@@ -6,15 +6,16 @@ const getReviewByIdHandler = async (req, res) => {
     const { id } = req.params;
     const review = await getReviewById(id);
 
-    if (!review)
+    if (!review) {
       return res.status(404).json({
-        status: "fail",
-        message: "Review no encontrado",
+        status: 'fail',
+        message: 'Review no encontrado'
       });
+    }
 
     return res.status(200).json({
-      status: "success",
-      product: review,
+      status: 'success',
+      product: review
     });
   } catch (error) {
     console.error(error);

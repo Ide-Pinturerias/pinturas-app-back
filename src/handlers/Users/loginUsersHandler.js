@@ -1,65 +1,44 @@
-const { UsersControllers } = require('../../controllers');
+const { UsersControllers } = require('#CONTROLLERS');
 const { loginUsers } = UsersControllers;
 
 const loginUsersHandler = async (req, res) => {
-
+  try {
     const { email, password } = req.body;
 
-    // Buscar en bd si existe y comparar contraseña
-    if (!email || !password) {
+    const { user, token } = await loginUsers({ email, password });
 
-        return res.status(400).json({
+    if (user && token) {
+      // Devolver datos
+      return res.status(200).json({
 
-            status: "error",
-            mensaje: "Faltan datos por enviar"
+        status: 'success',
+        mensaje: 'Te has identificado exitosamente',
+        acceso: {
 
-        });
-
-    }
-
-    try {
-
-        const { user, token } = await loginUsers(email, password);
-
-        if (user && token) {
-
-            // Devolver datos
-            return res.status(200).json({
-
-                status: "success",
-                mensaje: "Te has identificado exitosamente",
-                acceso: {
-
-                    user,
-                    token
-
-                }
-
-            });
-
-        } else {
-
-            return res.status(500).send({
-
-                status: "error",
-                mensaje: "La datos proporcionados no coinciden",
-                error: error.message
-
-            });
+          user,
+          token
 
         }
 
-    } catch (error) {
+      });
+    } else {
+      return res.status(400).send({
 
-        return res.status(500).json({
+        status: 'error',
+        mensaje: 'La datos proporcionados no coinciden'
 
-            status: "error",
-            mensaje: "Error del servidor al ejecutar el login del usuario",
-            error: error.message,
-
-        });
-
+      });
     }
+  } catch (error) {
+    console.error('Error en loginUsersHandler: \n', error);
+
+    return res.status(error.status || 500).json({
+
+      name: error.name,
+      message: error.message
+
+    });
+  }
 };
 
 module.exports = loginUsersHandler;

@@ -1,34 +1,44 @@
-const { Orders, Products } = require("../../db");
+const { Orders, Products } = require('#DB_CONNECTION');
+
+const {
+  ORDER_NOT_FOUND_ERROR,
+  PRODUCT_NOT_FOUND_ERROR
+} = require('#ERRORS');
 
 const webHookController = async ({ idOrder, action, bodySTR, querySTR }) => {
+  const order = await Orders.findByPk(idOrder);
+  // const { meliBody: prevBody, meliQuery: prevQuery } = order;
+  if (!order) {
+    throw new ORDER_NOT_FOUND_ERROR(`Order with id ${idOrder} not found`);
+  }
 
-    const order = await Orders.findByPk(idOrder);
-    if (!order) throw Error("Error: No se encontro la orden");
+  if (action === 'payment.created') {
+    // update products stock
+    const parsedProducts = JSON.parse(order.products);
 
-    if (action === 'payment.created') {
+    const { ids, qus } = parsedProducts;
 
-        const orderProducts = order.products.map(product =>
-            JSON.parse(product));
-
-        orderProducts.forEach(async product => {
-
-            const dbProduct = await Products.findByPk(product.id);
-            if (!dbProduct) throw new Error('Error: Producto no encontrado');
-            await dbProduct?.update({
-                stock: Math.max(0, dbProduct.stock - product.quantity)
-            });
-        });
-        // if (bodySTR) order.meliBody = bodySTR;
-        // if (querySTR) order.meliQuery = querySTR;
-        await order.update({
-            meliBody: bodySTR,
-            meliQuery: querySTR,
-            state: "paid"
-        });
+    for (let i = 0; i < ids.length; i++) {
+      const product = await Products.findByPk(ids[i]);
+      if (!product) {
+        throw new PRODUCT_NOT_FOUND_ERROR(`Product with id ${ids[i]} not found`);
+      }
+      await product.update({ stock: Math.max(0, product.stock - qus[i]) });
     }
 
-    return order;
+    await order.update({
+      meliBody: bodySTR,
+      meliQuery: querySTR
+    });
+    // console.info(`Fields created for order ${idOrder}`);
 
+    // Actualizamos el estado de la orden a pagada
+    await order.update({
+      state: 'paid'
+    });
+  }
+
+  return order;
 };
 
 module.exports = webHookController;
